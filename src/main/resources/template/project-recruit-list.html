@@ -9,54 +9,182 @@
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/project-favi.ico" />
     <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="/static/project.css" rel="stylesheet" />
+    <link href="/static/css/project-style.css" rel="stylesheet" />
+    <link href="/static/css/side-bar-style.css" rel="stylesheet" />
 </head>
 <body>
-<!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">ROCKET</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">모집</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">프로젝트</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">커뮤니티</a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">카테고리1</a></li>
-                        <li><a class="dropdown-item" href="#!">카테고리2</a></li>
-                        <li><a class="dropdown-item" href="#!">카테고리3</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form class="d-flex">
+<!-- Side Bar -->
+<div class="sidebar">
+    <div class="logo-details">
+        <i class="bx bx-rocket icon"></i>
+        <div class="logo_name">ROCKET</div>
+        <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <a href="#">
+                <i class="bx bx-user"></i>
+                <span class="links_name">팀원 모집</span>
+            </a>
+            <span class="tooltip">팀원 모집</span>
+        </li>
+        <li>
+            <a href="#">
+                <i class="bx bx-notepad"></i>
+                <span class="links_name">프로젝트</span>
+            </a>
+            <span class="tooltip">프로젝트</span>
+        </li>
+        <li>
+            <a href="#">
+                <i class="bx bx-chat"></i>
+                <span class="links_name">커뮤니티</span>
+            </a>
+            <span class="tooltip">커뮤니티</span>
+        </li>
+    </ul>
+</div>
+<!-- Section-->
+<section class="home-section">
+    <!-- Navigation-->
+    <header class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+<!--            <li class="nav-item dropdown no-arrow d-sm-none">-->
+<!--                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"-->
+<!--                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                    <i class="fas fa-search fa-fw"></i>-->
+<!--                </a>-->
+<!--                &lt;!&ndash; Dropdown - Messages &ndash;&gt;-->
+<!--            </li>-->
+
+<!--            &lt;!&ndash; Nav Item - Alerts &ndash;&gt;-->
+<!--            <li class="nav-item dropdown no-arrow mx-1">-->
+<!--                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"-->
+<!--                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                    <i class="fas fa-bell fa-fw"></i>-->
+<!--                    &lt;!&ndash; Counter - Alerts &ndash;&gt;-->
+<!--                    <span class="badge badge-danger badge-counter">3+</span>-->
+<!--                </a>-->
+<!--                &lt;!&ndash; Dropdown - Alerts &ndash;&gt;-->
+<!--                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated&#45;&#45;grow-in"-->
+<!--                     aria-labelledby="alertsDropdown">-->
+<!--                    <h6 class="dropdown-header">-->
+<!--                        Alerts Center-->
+<!--                    </h6>-->
+<!--                    <a class="dropdown-item d-flex align-items-center" href="#">-->
+<!--                        <div class="mr-3">-->
+<!--                            <div class="icon-circle bg-primary">-->
+<!--                                <i class="fas fa-file-alt text-white"></i>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <div class="small text-gray-500">December 12, 2019</div>-->
+<!--                            <span class="font-weight-bold">앗 저는 아직 읽지 않은 알림이에요</span>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                    <a class="dropdown-item d-flex align-items-center" href="#">-->
+<!--                        <div class="mr-3">-->
+<!--                            <div class="icon-circle bg-success">-->
+<!--                                <i class="fas fa-donate text-white"></i>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <div class="small text-gray-500">December 7, 2019</div>-->
+<!--                            안녕하세요 저는 읽은 알림입니다.-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                    <a class="dropdown-item d-flex align-items-center" href="#">-->
+<!--                        <div class="mr-3">-->
+<!--                            <div class="icon-circle bg-warning">-->
+<!--                                <i class="fas fa-exclamation-triangle text-white"></i>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <div class="small text-gray-500">December 2, 2019</div>-->
+<!--                            안녕하세요 저도 알림이에요-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>-->
+<!--                </div>-->
+<!--            </li>-->
+
+
+<!--            &lt;!&ndash; Nav Item - User Information &ndash;&gt;-->
+<!--            <li class="nav-item dropdown no-arrow">-->
+<!--                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"-->
+<!--                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                    <img class="img-profile rounded-circle"-->
+<!--                         src="/static/mang9.jpg">-->
+<!--                </a>-->
+<!--                &lt;!&ndash; Dropdown - User Information &ndash;&gt;-->
+<!--                <div class="dropdown-menu dropdown-menu-right shadow animated&#45;&#45;grow-in"-->
+<!--                     aria-labelledby="userDropdown">-->
+<!--                    <a class="dropdown-item" href="#">-->
+<!--                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+<!--                        마이페이지-->
+<!--                    </a>-->
+<!--                    <a class="dropdown-item" href="#">-->
+<!--                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
+<!--                        설정-->
+<!--                    </a>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">-->
+<!--                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>-->
+<!--                        로그아웃-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </li>-->
+
+<!--            </ul>-->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="bx bx-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </ul>
+
+                <a class="nav-link" href="#">
+                    <i class="bx bx-bell"></i>
+                </a>
+
                 <a class="nav-link arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <span class="d-lg-flex flex-column gap-1 d-none">
-                        <h6 class="my-0">룰루 님</h6>
-                    </span>
+                    <!--                    <span class="d-lg-flex flex-column gap-1 d-none">-->
+                    <!--                        <h6 class="my-0">룰루 님</h6>-->
+                    <!--                    </span>-->
                     <span class="account-user-avatar">
                         <img src="/static/mang9.jpg" alt="user-image" width="32" class="rounded-circle">
                     </span>
+
                 </a>
-            </form>
+
+                <a class="nav-link" href="#">
+                    공고 모집
+                </a>
+            </div>
+        </div>
+    </header>
+    <!-- Header-->
+    <div class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">모집중인 프로젝트</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Join your team</p>
+            </div>
         </div>
     </div>
-</nav>
-<!-- Header-->
-<header class="bg-dark py-5">
-    <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">모집중인 프로젝트</h1>
-            <p class="lead fw-normal text-white-50 mb-0">Join your team</p>
-        </div>
-    </div>
-</header>
-<!-- Section-->
-<section class="py-5">
-    <div class="container row-cols-xl-4">
+    <div class="container row-cols-xl-4 mt-5">
         <select class="form-select-lg">
             <option value="프로젝트">프로젝트</option>
             <option value="공모전">공모전</option>
@@ -250,14 +378,15 @@
             </div>
         </div>
     </div>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+    </footer>
 </section>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-</footer>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
-<script src="/static/project.js"></script>
+<script src="/js/project.js"></script>
+<script src="/static/js/side-bar-script.js" />
 </body>
 </html>
