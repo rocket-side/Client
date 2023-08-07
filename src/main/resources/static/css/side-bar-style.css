@@ -11,9 +11,9 @@
   left: 0;
   top: 0;
   height: 100%;
-  width: 78px;
+  width: 90px;
   background: #fff;
-  padding: 6px 14px;
+  padding: 15px 20px;
   z-index: 99;
   transition: all 0.5s ease;
 }
@@ -58,11 +58,11 @@
 }
 .sidebar i{
   color: #000000;
-  height: 60px;
+  height: 50px;
   min-width: 50px;
   font-size: 28px;
   text-align: center;
-  line-height: 60px;
+  line-height: 50px;
 }
 .sidebar .nav-list{
   margin-top: 20px;

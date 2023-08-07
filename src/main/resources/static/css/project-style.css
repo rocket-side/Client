@@ -3753,6 +3753,15 @@ textarea.form-control-lg {
   justify-content: space-between;
   padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
 }
+
+.navbar li {
+  list-style: none;
+  padding: 0px 5px;
+}
+.navbar li i{
+  font-size: 28px;
+}
+
 .navbar > .container,
 .navbar > .container-fluid,
 .navbar > .container-sm,
@@ -8173,6 +8182,12 @@ textarea.form-control-lg {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
 }
+
+.bg-gray-500 {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-gray-500), var(--bs-bg-opacity)) !important;
+}
+
 
 .bg-body {
   --bs-bg-opacity: 1;
