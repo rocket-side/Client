@@ -604,7 +604,6 @@ progress {
 }
 .img-profile {
     max-width: 20%;
-    height: auto;
     border: 0.5rem solid rgba(255, 255, 255, 0.2);
 }
 
