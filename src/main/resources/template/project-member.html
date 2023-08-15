@@ -17,7 +17,6 @@
   <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
   <!-- Core theme CSS (includes Bootstrap)-->
   <link href="/static/css/project-style.css" rel="stylesheet" />
-  <link href="/static/css/recruit-read.css" rel="stylesheet" />
   <link href="/static/css/side-bar-style.css" rel="stylesheet" />
 </head>
 <body>
@@ -119,14 +118,13 @@
       <div class="col-lg-8">
         <!-- post manager category-->
         <div class="btn-group" role="group" aria-label="Basic example">
-          <a type="button" class="btn btn-secondary" href="recruit-read.html">공고글</a>
+          <a type="button" class="btn btn-secondary" href="recruit-read.html">공고</a>
           <a type="button" class="btn btn-secondary" href="recruit-applicant.html">지원자</a>
           <a type="button" class="btn btn-outline-secondary" href="project-member.html">팀원</a>
           <a type="button" class="btn btn-secondary" href="recruit-update.html">수정</a>
         </div>
         <div class="border p-lg-3 rounded example-element mw-100 mb-4">
           <h1 class="p-1">리더</h1>
-          <button class="btn btn-outline-primary edit-all-button mb-3">수정</button>
           <div class="row">
             <div class="col-lg-4">
               <div class="card mb-4">
@@ -144,20 +142,22 @@
               </div>
             </div>
           </div>
-          <h1 class="p-1">팀원</h1>
+          <span class="p-1 h1" id="group_member">팀원</span>
+          <button class="btn btn-outline-primary edit-all-button mb-3">수정</button>
           <div class="row">
             <div class="col-lg-4">
               <div class="card mb-4">
                 <div class="card-header h5">
-                  <span class="d-none d-lg-block mb-0">
-                    <img class="img-fluid img-profile rounded-circle mx-auto  mb-2" src="/static/img/cat_profile.jpeg" alt="..." />
+                  <span class="d-none d-lg-block mb-0" style="vertical-align: middle">
+                    <img class="img-fluid img-profile rounded-circle mx-auto" src="/static/img/cat_profile.jpeg" alt="..." />
                     <span class="h4 text-muted">노르웨이숲 KIM</span>
                   </span>
                 </div>
-                <div class="card-body">
+                <div class="card-body members">
                   <p class="text-center">LEVEL : 훈련생</p>
                   <p class="text-center text-primary">안드로이드 담당</p>
                   <button class="btn btn-outline-secondary w-100" >1:1 대화</button>
+                  <button class="btn btn-outline-secondary w-100 delete-button " >탈퇴</button>
                 </div>
               </div>
             </div>
@@ -169,10 +169,11 @@
                     <span class="h4 text-muted">보더콜리 KIM</span>
                   </span>
                 </div>
-                <div class="card-body">
+                <div class="card-body members">
                   <p class="text-center">LEVEL : 훈련생</p>
                   <p class="text-center text-primary">Back-End 담당</p>
                   <button class="btn btn-outline-secondary w-100" >1:1 대화</button>
+                  <button class="btn btn-outline-secondary w-100 delete-button" >탈퇴</button>
                 </div>
               </div>
             </div>
@@ -184,10 +185,11 @@
                     <span class="h4 text-muted">보더콜리 KIM</span>
                   </span>
                 </div>
-                <div class="card-body">
+                <div class="card-body members">
                   <p class="text-center">LEVEL : 훈련생</p>
                   <p class="text-center text-primary">웹서버 담당</p>
                   <button class="btn btn-outline-secondary w-100" >1:1 대화</button>
+                  <button class="btn btn-outline-secondary w-100 delete-button" >탈퇴</button>
                 </div>
               </div>
             </div>
