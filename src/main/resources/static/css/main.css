@@ -179,7 +179,7 @@ iframe {
 }
 
 .wrap-login100 {
-  width: 655px;
+  width: 750px;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -2299,3 +2299,9 @@ body {
     -webkit-transition-delay: .16s;
     transition-delay: .16s
 }
+
+.custom-textarea {
+     border: 1px solid #ccc;
+     resize: none;
+     outline: 1px solid blue;
+ }
