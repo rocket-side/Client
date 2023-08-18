@@ -20,6 +20,7 @@
   <!-- Core theme CSS (includes Bootstrap)-->
   <link href="/static/css/recruit-read.css" rel="stylesheet" />
   <link href="/static/css/side-bar-style.css" rel="stylesheet" />
+  <link href="/static/css/project-style.css" rel="stylesheet" >
 </head>
 <body>
 <!-- Side Bar -->
@@ -29,7 +30,7 @@
     <div class="logo_name">ROCKET</div>
     <i class="bx bx-menu rounded-circle" id="btn"></i>
   </div>
-  <ul class="nav-list">
+  <ul class="nav-list p-0">
     <li class="pt-3 pb-3">
       <a href="#">
         <i class="bx bx-user"></i>
@@ -53,25 +54,53 @@
     </li>
   </ul>
 </div>
-<!-- Responsive navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand" href="#!">Rocket</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    <div class="input-group">
-      <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-      <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-    </div>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
-        <li class="nav-item"><a class="btn btn-primary" aria-current="page" href="#">공고 모집</a></li>
+<section class="home-section bg-white">
+<!-- Navigation-->
+<nav class=" navbar navbar-expand-lg navbar-light bg-white ">
+  <div class="container px-4 px-lg-5">
+    <form class="d-flex ">
+      <input class="form-control mx-sm-1" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-dark my-2 my-sm-0 navbar-brand" type="submit">
+        <i class="bx bx-search"></i>
+      </button>
+    </form>
 
-      </ul>
-    </div>
+    <ul class="d-flex align-items-center mb-0">
+      <li class="nav-item dropdown">
+        <a class="nav-link d-flex align-items-center " data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+          <i class="bx bxs-bell"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                99+
+                                <span class="visually-hidden">unread messages</span>
+                          </span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="#!">알림1</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li><a class="dropdown-item" href="#!">알림2</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li><a class="dropdown-item" href="#!">알림2</a></li>
+
+        </ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <span class="account-user-avatar">
+                                <img src="/static/img/mang9.jpg" alt="user-image" width="35" class="rounded-circle">
+                            </span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="#!">마이페이지</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li><a class="dropdown-item" href="#!">로그아웃</a></li>
+        </ul>
+      </li>
+      <li class="border rounded-pill">
+        <a class="nav-link fw-bold px-lg-3 py-2" href="#">
+          공고 모집
+        </a>
+      </li>
+    </ul>
   </div>
 </nav>
 <!-- Page header with logo and tagline-->
@@ -98,7 +127,7 @@
           <div class="small text-muted rightContainer">January 1, 2023</div>
           <h2 class="h1">소개 작성</h2>
           <form>
-            <textarea></textarea>
+            <textarea  style="width: 100%; height: 6em; " placeholder="내용을 입력해 주세요."></textarea>
           </form>
           <h2 class="h1 p-1">기술/언어</h2>
           <button>추가하기</button>
@@ -168,6 +197,7 @@
     </div>
   </div>
 </div>
+</section>
 <!-- Footer-->
 <footer class="py-5 bg-dark">
   <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
