@@ -1,5 +1,9 @@
 package com.rocket.front.service;
 
+//import com.jeongm.rocketsecurity.entity.Member;
+//import com.jeongm.rocketsecurity.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,13 +13,24 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
-    // TODO CustomUserDetailsService DB에서 유저정보 가져오는 해야 함
+
+    // TODO 통신 후 받아올 수 있어야 함
+//    private final MemberRepository memberRepository;
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new User("admin",
-                "1234",
-                Collections.singleton(new SimpleGrantedAuthority("ROEL_ADMIN")));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        Member member = memberRepository.findByEmail(email)
+//                .orElseThrow(() -> new UsernameNotFoundException(email + "not found"));
+//        log.info(String.valueOf(member.getMemberSeq()));
+//        return new User( member.getEmail()
+//        ,member.getPassword()
+//        , Collections.singleton(new SimpleGrantedAuthority(member.getAuthority().getName())));
+
+        return new User( "admin"
+                ,"1234"
+                , Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN")));
     }
 }
