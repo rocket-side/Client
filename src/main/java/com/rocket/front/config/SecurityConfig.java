@@ -56,7 +56,6 @@ public class SecurityConfig {
                 .and()
                 .build();
     }
-    //TODO static 파일들 적용 안됨 ㅅㅂ
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
         return web -> web.ignoring()
