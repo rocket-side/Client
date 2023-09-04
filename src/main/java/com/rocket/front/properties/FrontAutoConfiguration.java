@@ -5,5 +5,5 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableConfigurationProperties(FrontProperties.class)
-public class FrontAutoConfiguration {
+    public class FrontAutoConfiguration {
 }

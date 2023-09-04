@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.swing.text.Position;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
@@ -232,13 +231,6 @@ public class MemberAdapter {
 
         return responseEntity.getBody();
     }
-
-//    @ApiOperation(value = "관심 분야 등록", notes = "멤버 seq와 관심 분야 seq list를 받아 등록합니다.")
-//    @PostMapping("/preference/register/{member_seq}")
-//    public ResponseEntity<Void> registerPreference(@PathVariable Long member_seq, @RequestBody PreferenceRequestDto dto) {
-//        preferenceService.registerPreference(member_seq, dto);
-//        return ResponseEntity.status(HttpStatus.CREATED).build();
-//    }
 
     /**
      * 멤버 seq와 관심 분야 seq list로 관심 분야를 추가합니다.
