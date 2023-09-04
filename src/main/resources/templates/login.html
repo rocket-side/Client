@@ -1,27 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Sign in</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="../static/img/icons/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="../static/js/vendor/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="../static/fonts/iconic/css/material-design-iconic-font.min.css">
-	<link rel="stylesheet" type="text/css" href="../static/js/vendor/animate/animate.css">
-	<link rel="stylesheet" type="text/css" href="../static/js/vendor/css-hamburgers/hamburgers.min.css">
-	<link rel="stylesheet" type="text/css" href="../static/js/vendor/animsition/css/animsition.min.css">
-	<link rel="stylesheet" type="text/css" href="../static/js/vendor/select2/select2.min.css">
-	<link rel="stylesheet" type="text/css" href="../static/js/vendor/daterangepicker/daterangepicker.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/util.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/main.css">
+
+	<link rel="icon" type="image/png" th:href="@{/img/icons/favicon.ico}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/js/vendor/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/js/vendor/animate/animate.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/js/vendor/css-hamburgers/hamburgers.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/js/vendor/animsition/css/animsition.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/js/vendor/select2/select2.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/js/vendor/daterangepicker/daterangepicker.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
 </head>
 <body>
 	
 	<div class="limiter">
 		<div class="container-login100" style="background-color: black">
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" method="POST" action="/login" th:object="${loginRequest}">
 					<span class="login100-form-title p-b-49">
 						Sign in
 					</span>
@@ -34,7 +35,7 @@
 
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="pass" placeholder="Type your password">
+						<input class="input100" type="password" name="password" placeholder="Type your password">
 						<span class="focus-input100" data-symbol="&#xf190;"></span>
 					</div>
 					
@@ -60,20 +61,20 @@
 					</div>
 
 					<div class="flex-c-m">
-						<a href="#" class="login100-social-item bg1">
+						<a href="/oauth2/authorization/github" class="login100-social-item bg1">
 							<i class="fa fa-github"></i>
 						</a>
 
-						<a href="#" class="login100-social-item bg2">
+						<a href="/oauth2/authorization/google" class="login100-social-item bg2">
 							<i class="fa fa-google"></i>
 						</a>
 
-						<a href="#" class="login100-social-item bg3">
-							<img src="/static/img/naver_logo.svg" width="20" height="20" alt="naver">
+						<a href="/oauth2/authorization/naver" class="login100-social-item bg3">
+							<img src="/img/naver_logo.svg" width="20" height="20" alt="naver">
 						</a>
 
-						<a href="#" class="login100-social-item bg4">
-							<img src="/static/img/kakao_logo.png" width="30" height="30" alt="kakao">
+						<a href="/oauth2/authorization/kakao" class="login100-social-item bg4">
+							<img th:src="@{/img/kakao_logo.png}" width="30" height="30" alt="kakao">
 						</a>
 					</div>
 
@@ -93,16 +94,16 @@
 	
 
 	<div id="dropDownSelect1"></div>
-	
-	<script src="../static/js/vendor/jquery/jquery-3.2.1.min.js"></script>
-	<script src="../static/js/vendor/animsition/js/animsition.min.js"></script>
-	<script src="../static/js/vendor/bootstrap/js/popper.js"></script>
-	<script src="../static/js/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="../static/js/vendor/select2/select2.min.js"></script>
-	<script src="../static/js/vendor/daterangepicker/moment.min.js"></script>
-	<script src="../static/js/vendor/daterangepicker/daterangepicker.js"></script>
-	<script src="../static/js/vendor/countdowntime/countdowntime.js"></script>
-	<script src="../static/js/main.js"></script>
+
+	<script type="text/javascript" th:src="@{/js/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/vendor/animsition/js/animsition.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/vendor/bootstrap/js/popper.js}"></script>
+	<script type="text/javascript" th:src="@{/js/vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/vendor/select2/select2.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/vendor/daterangepicker/moment.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/vendor/daterangepicker/daterangepicker.js}"></script>
+	<script type="text/javascript" th:src="@{/js/vendor/countdowntime/countdowntime.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
 
 </body>
 </html>
