@@ -1,6 +1,6 @@
 package com.rocket.front.auth.config;
 
-import com.rocket.front.auth.utils.CustomLoginSuccessHandler;
+//import com.rocket.front.auth.utils.CustomLoginSuccessHandler;
 import com.rocket.front.auth.utils.RoleType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -56,12 +56,12 @@ public class SecurityConfig {
                     .usernameParameter("username")
                     .passwordParameter("password")
                     .loginPage("/login")
-                    .successHandler(customLoginSuccessHandler())
+//                    .successHandler(customLoginSuccessHandler())
                 .and()
                 .oauth2Login()
                     .clientRegistrationRepository(clientRegistrationRepository())
                     .authorizedClientService(oAuth2AuthorizedClientService())
-                    .successHandler(customLoginSuccessHandler())
+//                    .successHandler(customLoginSuccessHandler())
                     .loginPage("/login")
 //                    .failureUrl("/") // TODO 로그인 실패 시 회원가입 페이지로 리다이렉트
 //                    .redirectionEndpoint()
@@ -85,10 +85,10 @@ public class SecurityConfig {
 
 
 
-    @Bean
-    public CustomLoginSuccessHandler customLoginSuccessHandler() {
-        return new CustomLoginSuccessHandler();
-    }
+//    @Bean
+//    public CustomLoginSuccessHandler customLoginSuccessHandler() {
+//        return new CustomLoginSuccessHandler();
+//    }
 
 
     @Bean

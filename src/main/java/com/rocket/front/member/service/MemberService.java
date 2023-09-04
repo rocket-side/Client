@@ -1,13 +1,19 @@
 package com.rocket.front.member.service;
 
+import com.rocket.front.member.domain.request.MemberSignUpRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+
+import java.util.Map;
 
 @Service
-public class MemberService {
-    private final PasswordEncoder passwordEncoder;
+public interface MemberService {
 
-    public MemberService(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    void signUp(MemberSignUpRequest request);
+
+    Map<String, String> validateHandling(BindingResult bindingResult);
+
+    String passwordEncoding(String password);
 }
