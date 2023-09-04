@@ -1,32 +1,34 @@
 package com.rocket.front.member.adapter;
 
 import com.rocket.front.member.domain.request.MemberSignUpRequest;
+import com.rocket.front.member.domain.request.PositionRegisterRequest;
 import com.rocket.front.member.domain.request.PreferenceRegisterRequest;
 import com.rocket.front.member.domain.response.*;
-import com.rocket.front.properties.FrontProperties;
+import com.rocket.front.properties.MemberProperties;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Slf4j
+@Component
+@RequiredArgsConstructor
 @RequestMapping("/member/api/")
 public class MemberAdapter {
 
     private final RestTemplate restTemplate;
-    private final FrontProperties frontProperties;
 
-    public MemberAdapter(RestTemplate restTemplate, FrontProperties frontProperties) {
-        this.restTemplate = restTemplate;
-        this.frontProperties = frontProperties;
-    }
+    private final MemberProperties memberProperties;
 
     /**
      * email을 통해서 해당 계정이 중복되었는지 조회합니다.
@@ -62,7 +64,7 @@ public class MemberAdapter {
      * @param request 저장할 멤버 정보
      * @HTTP method POST
      */
-    public void signUp(MemberSignUpRequest request) {
+    public void signUp(@Valid MemberSignUpRequest request) {
         HttpEntity<MemberSignUpRequest> requestEntity = new HttpEntity<>(request, getHttpHeader());
 
         URI uri = getUri(null, "/register");
@@ -84,7 +86,6 @@ public class MemberAdapter {
      * @return 조회된 멤버 정보
      * @HTTP method GET
      */
-
     public MemberInfoResponse getMemberInfoBySeq(Long seq) {
         Map<String, Object> params = new HashMap<>();
         params.put("seq", seq);
@@ -235,23 +236,23 @@ public class MemberAdapter {
     /**
      * 멤버 seq와 관심 분야 seq list로 관심 분야를 추가합니다.
      *
-     * @param seq     멤버 시퀀스
+     * @param memberSeq 멤버 시퀀스
      * @param request 추가할 관심 분야 seq list
      * @HTTP method POST
      */
-    public void registerPreference(Long seq, PreferenceRegisterRequest request) {
+    public void registerPreference(Long memberSeq, @Valid PreferenceRegisterRequest request) {
         HttpEntity<PreferenceRegisterRequest> requestEntity = new HttpEntity<>(request, getHttpHeader());
 
         Map<String, Object> params = new HashMap<>();
-        params.put("seq", seq);
-        URI uri = getUri(params, "/preference/register/{seq}");
+        params.put("member_seq", memberSeq);
+        URI uri = getUri(params, "/preference/register/{member_seq}");
 
         ResponseEntity<Void> responseEntity = restTemplate.exchange(uri, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<Void>() {
         });
 
         if (responseEntity.getStatusCode() != HttpStatus.CREATED) {
-            log.error("Error from register Member Preference. status: {}, param: {}", responseEntity.getStatusCode(), seq);
-            throw new RuntimeException("Error from register Member Preference. " + responseEntity.getStatusCode() + ", " + seq);
+            log.error("Error from register Member Preference. status: {}, param: {}", responseEntity.getStatusCode(), memberSeq);
+            throw new RuntimeException("Error from register Member Preference. " + responseEntity.getStatusCode() + ", " + memberSeq);
         }
     }
 
@@ -346,23 +347,23 @@ public class MemberAdapter {
     /**
      * 멤버 seq와 포지션 seq list로 포지션을 추가합니다.
      *
-     * @param seq     멤버 시퀀스
+     * @param memberSeq     멤버 시퀀스
      * @param request 추가할 포지션 seq list
      * @HTTP method POST
      */
-    public void registerPosition(Long seq, PositionResponse request) {
-        HttpEntity<PositionResponse> requestEntity = new HttpEntity<>(request, getHttpHeader());
+    public void registerPosition(Long memberSeq, @Valid PositionRegisterRequest request) {
+        HttpEntity<PositionRegisterRequest> requestEntity = new HttpEntity<>(request, getHttpHeader());
 
         Map<String, Object> params = new HashMap<>();
-        params.put("seq", seq);
-        URI uri = getUri(params, "/position/register/{seq}");
+        params.put("member_seq", memberSeq);
+        URI uri = getUri(params, "/position/register/{member_seq}");
 
         ResponseEntity<Void> responseEntity = restTemplate.exchange(uri, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<Void>() {
         });
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            log.error("Error from register Member Position. status: {}, param: {}", responseEntity.getStatusCode(), seq);
-            throw new RuntimeException("Error from register Member Position. " + responseEntity.getStatusCode() + ", " + seq);
+            log.error("Error from register Member Position. status: {}, param: {}", responseEntity.getStatusCode(), memberSeq);
+            throw new RuntimeException("Error from register Member Position. " + responseEntity.getStatusCode() + ", " + memberSeq);
         }
     }
 
@@ -396,30 +397,12 @@ public class MemberAdapter {
         return httpHeaders;
     }
 
-//    public URI getUri(String param, String path) {
-//        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder
-//                .fromPath(path)
-//                .scheme("http")
-//                .host(frontProperties.getHost())
-//                .port(frontProperties.getPort());
-//
-//        if (Objects.nonNull(param)) {
-//            return uriComponentsBuilder.queryParam("param", param).build().encode().toUri();
-//        } else {
-//            return uriComponentsBuilder.build(false).encode().toUri();
-//        }
-//    }
-//
-//    public URI getUri(Long param, String path) {
-//        return getUri(String.valueOf(param), path);
-//    }
-
     public URI getUri(Map<String, Object> params, String path) {
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder
                 .fromPath(path)
                 .scheme("http")
-                .host(frontProperties.getHost())
-                .port(frontProperties.getPort());
+                .host(memberProperties.getHost())
+                .port(memberProperties.getPort());
 
         if (params != null) {
             for (Map.Entry<String, Object> entry : params.entrySet()) {
