@@ -54,6 +54,55 @@
     </li>
   </ul>
 </div>
+<!-- Navigation-->
+<nav class=" navbar navbar-expand-lg navbar-light bg-black ">
+  <div class="container px-4 px-lg-5">
+    <form class="d-flex ">
+      <input class="form-control mx-sm-1" style="width: 500px" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-light my-2 my-sm-0 navbar-brand" type="submit">
+        <i class="bx bx-search" style="color: whitesmoke"></i>
+      </button>
+    </form>
+
+    <ul class="d-flex align-items-center mb-0">
+      <li class="nav-item dropdown">
+        <a class="nav-link d-flex align-items-center " data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+          <i class="bx bxs-bell" style="color: whitesmoke"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                99+
+                                <span class="visually-hidden">unread messages</span>
+                          </span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="#!">알림1</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li><a class="dropdown-item" href="#!">알림2</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li><a class="dropdown-item" href="#!">알림2</a></li>
+
+        </ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <span class="account-user-avatar">
+                                <img src="/static/img/mang9.jpg" alt="user-image" width="35" class="rounded-circle">
+                            </span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="#!">마이페이지</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li><a class="dropdown-item" href="#!">로그아웃</a></li>
+        </ul>
+      </li>
+      <li class="border rounded-pill" style="background-color: #0f33ff">
+        <a class="nav-link fw-bold px-lg-3 py-2" href="#" style="color: whitesmoke">
+          공고 모집
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+  
 <section class="home-section bg-white">
   <!-- Navigation-->
   <nav class=" navbar navbar-expand-lg navbar-light bg-white ">
@@ -117,16 +166,22 @@
 <div class="container">
   <div class="row">
     <!-- Blog entries-->
-    <div class="col-lg-8">
+    <div class="col-lg-8" style="width: 1450px">
       <!-- Featured blog post-->
       <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary">등록</button>
+        <button type="button" class="btn btn-secondary" style="background-color: #0f33ff">등록</button>
+      </div>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary">취소</button>
       </div>
       <div class="border p-lg-3 rounded example-element mw-100 mb-4">
         <div class="card-body">
           <div class="small text-muted rightContainer">January 1, 2023</div>
-          <h2 class="h1">소개 작성</h2>
+          <h2 class="h3">소개글 작성</h2>
           <form>
+            <label>
+              <textarea style="resize: none; width: 1250px; height: 500px;"></textarea>
+            </label>
             <textarea style="width: 100%; height: 6em; " placeholder="내용을 입력해 주세요."></textarea>
           </form>
         </div>
