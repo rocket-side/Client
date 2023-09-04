@@ -1,5 +1,8 @@
-package com.rocket.front.auth;
+package com.rocket.front.auth.utils;
 
+import com.rocket.front.auth.repository.MemberRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Slf4j
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 //    private final MemberRepository memberRepository;
@@ -26,7 +30,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         // TODO memberSeq 가져와야 함
 //        session.setAttribute("memberSeq",memberRepository.findByEmail(authentication.getName()));
         session.setAttribute("email",authentication.getName());
-        log.info("===log===", authentication.getName());
+
         response.addCookie(new Cookie("SESSION", session.getId()));
     }
 }

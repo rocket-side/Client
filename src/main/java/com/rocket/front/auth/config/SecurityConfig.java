@@ -1,7 +1,7 @@
-package com.rocket.front.config;
+package com.rocket.front.auth.config;
 
-import com.rocket.front.auth.CustomLoginSuccessHandler;
-import com.rocket.front.util.RoleType;
+import com.rocket.front.auth.utils.CustomLoginSuccessHandler;
+import com.rocket.front.auth.utils.RoleType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -43,6 +43,12 @@ public class SecurityConfig {
 //                    .anyRequest().authenticated()
                     .anyRequest().permitAll()
                 .and()
+                // TODO Spring Security JWT Filter Load
+//                .addFilterBefore()
+                // TODO Session 기반의 인증기반을 사용하지 않고 추후 JWT를 이용하여서 인증 예정
+//                .sessionManagement()
+//                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
                 // TODO 토큰을 사용하면 csrf를 disable해야한다고 함 -> 알아볼 것
                 .csrf()
                     .disable()
@@ -50,12 +56,12 @@ public class SecurityConfig {
                     .usernameParameter("username")
                     .passwordParameter("password")
                     .loginPage("/login")
-    //                    .successHandler(customLoginSuccessHandler())
+                    .successHandler(customLoginSuccessHandler())
                 .and()
                 .oauth2Login()
                     .clientRegistrationRepository(clientRegistrationRepository())
                     .authorizedClientService(oAuth2AuthorizedClientService())
-    //                    .successHandler(customLoginSuccessHandler())
+                    .successHandler(customLoginSuccessHandler())
                     .loginPage("/login")
 //                    .failureUrl("/") // TODO 로그인 실패 시 회원가입 페이지로 리다이렉트
 //                    .redirectionEndpoint()
@@ -75,10 +81,9 @@ public class SecurityConfig {
                 )
                 .antMatchers("/img/**","/fonts/**")
                 .antMatchers("/h2-console/**");
-
-//        return web -> web.ignoring()
-//                .antMatchers("/css/**","/img/**");
     }
+
+
 
     @Bean
     public CustomLoginSuccessHandler customLoginSuccessHandler() {
@@ -101,6 +106,7 @@ public class SecurityConfig {
         return authenticationProvider;
     }
 
+
     @Bean
     public ClientRegistrationRepository clientRegistrationRepository() {
         List<ClientRegistration> registrations = new ArrayList<>();
@@ -117,7 +123,6 @@ public class SecurityConfig {
         return new InMemoryOAuth2AuthorizedClientService(clientRegistrationRepository());
     }
 
-    //TODO email 못 가져옴
     private ClientRegistration github() {
         return CommonOAuth2Provider.GITHUB.getBuilder("github")
                 .clientId("7dedde138c5b33876fb1")
@@ -155,21 +160,17 @@ public class SecurityConfig {
                 .build();
     }
 
-    // TODO KaKao 작동 안됨 로그인 성공하는 듯 하지만 오류 발생
-    /*
-    [invalid_token_response] An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: 401 Unauthorized: [no body]
-     */
     private ClientRegistration kakao() {
         return ClientRegistration.withRegistrationId("kakao")
                 .clientId("2d667b0ce5f78b1066b16736ccf427b6")
                 .clientSecret("tJuycjIevMRm7nCg1F2L1khU5hYGrIKf")
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .redirectUri("{baseUrl}/{action}/oauth2/code/{registrationId}")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
                 .authorizationUri("https://kauth.kakao.com/oauth/authorize")
+                .redirectUri("{baseUrl}/{action}/oauth2/code/{registrationId}")
                 .tokenUri("https://kauth.kakao.com/oauth/token")
                 .userInfoUri("https://kapi.kakao.com/v2/user/me")
-                .scope("profile_nickname", "account_email", "profile_image","openid")
+                .scope("profile_nickname", "account_email", "profile_image")
                 .userNameAttributeName("id")
                 .build();
     }

@@ -1,6 +1,6 @@
-package com.rocket.front.repository;
+package com.rocket.front.auth.repository;
 
-import com.jeongm.rocketsecurity.entity.Authority;
+import com.rocket.front.auth.entity.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AuthorityRepository extends JpaRepository<Authority,Integer> {

@@ -1,4 +1,4 @@
-package com.rocket.front.auth;
+package com.rocket.front.auth.utils;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -20,11 +20,11 @@ import java.util.Objects;
 @Getter
 public class OAuthAttributes {
 
-    private Map<String,Object> attributes;
-    private String nameAttributeKey;
-    private String name;
-    private String email;
-    private String accessToken;
+    private final Map<String,Object> attributes;
+    private final String nameAttributeKey;
+    private final String name;
+    private final String email;
+    private final String accessToken;
 
     @Builder
     public OAuthAttributes(Map<String,Object> attributes, String nameAttributeKey, String name, String email, String accessToken) {
@@ -37,9 +37,9 @@ public class OAuthAttributes {
 
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String,Object> attributes, String accessToken) {
         if("naver".equals(registrationId)) {
-            return ofNaver("id",attributes);
+            return ofNaver(userNameAttributeName,attributes);
         } else if ("kakao".equals(registrationId)) {
-            return ofKakao("id", attributes);
+            return ofKakao(userNameAttributeName, attributes);
         } else if ("github".equals(registrationId)) {
             return ofGithub(userNameAttributeName, attributes, accessToken);
         }
@@ -111,23 +111,26 @@ public class OAuthAttributes {
         카카오와 네이버는 응답이 body에 감싸져서 들어옴
      */
     private static OAuthAttributes ofNaver(String userNameAttributeName, Map<String,Object> attributes) {
+
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
 
         return OAuthAttributes.builder()
-                .name((String) response.get("name"))
+                .name((String) response.get("nickname"))
                 .email((String) response.get("email"))
-                .attributes(response)
+                .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
 
     private static OAuthAttributes ofKakao(String userNameAttributeName, Map<String,Object> attributes) {
-        Map<String, Object> response = (Map<String, Object>) attributes.get("id");
+
+        Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+        Map<String, Object> kakaoProperties = (Map<String, Object>) attributes.get("properties");
 
         return OAuthAttributes.builder()
-                .name((String) response.get("profile_nickname"))
-                .email((String) response.get("account_email"))
-                .attributes(response)
+                .name((String) kakaoProperties.get("nickname"))
+                .email((String) kakaoAccount.get("email"))
+                .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }

@@ -1,4 +1,4 @@
-package com.rocket.front.entity;
+package com.rocket.front.auth.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

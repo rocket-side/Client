@@ -1,6 +1,6 @@
-package com.rocket.front.repository;
+package com.rocket.front.auth.repository;
 
-import com.rocket.front.entity.Member;
+import com.rocket.front.auth.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

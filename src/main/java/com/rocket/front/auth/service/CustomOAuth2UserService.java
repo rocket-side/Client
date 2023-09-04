@@ -1,8 +1,9 @@
-package com.rocket.front.service;
+package com.rocket.front.auth.service;
 
-import com.rocket.front.auth.OAuthAttributes;
-import com.rocket.front.entity.Member;
-import com.rocket.front.repository.MemberRepository;
+import com.rocket.front.auth.domain.response.MemberLoginProcResponseDto;
+import com.rocket.front.auth.utils.OAuthAttributes;
+import com.rocket.front.auth.entity.Member;
+import com.rocket.front.auth.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -50,11 +51,11 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         log.info("::::oAuth2User {}", (Object) oAuth2User.getAttribute("access_token"));
 
-        Member member = getUser(attributes);
+        MemberLoginProcResponseDto member = getUser(attributes);
 
 
         return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(member.getAuthority().getName()))
+                Collections.singleton(new SimpleGrantedAuthority(member.getRole()))
                 ,attributes.getAttributes()
                 , attributes.getNameAttributeKey()
         );
@@ -67,11 +68,22 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 //        );
     }
 
-    private Member getUser(OAuthAttributes attributes) {
+    // TODO restTemplate 변경해야 함
+    private MemberLoginProcResponseDto getUser(OAuthAttributes attributes) {
         log.info("getUser>>>>");
-        Member member = memberRepository.findByEmail(attributes.getEmail())
-                .orElseThrow(() -> new UsernameNotFoundException("userEmail not found")); // TODO email 못찾을 시
-        return member;
+        // TODO RestTemplate Adapter 소환해야 함
+        Member member =  memberRepository.findByEmail(attributes.getEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("userEmail not found"));
+
+        return convertToMemberLoginProcResponseDto(member);
+    }
+
+    private MemberLoginProcResponseDto convertToMemberLoginProcResponseDto(Member member) {
+        return MemberLoginProcResponseDto.builder()
+                .memberSeq(member.getMemberSeq())
+                .email(member.getEmail())
+                .role(member.getAuthority().getName())
+                .build();
     }
 
 
