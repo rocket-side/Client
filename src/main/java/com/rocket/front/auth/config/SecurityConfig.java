@@ -57,13 +57,15 @@ public class SecurityConfig {
                     .passwordParameter("password")
                     .loginPage("/login")
                     .successHandler(customLoginSuccessHandler())
+                .defaultSuccessUrl("/recruits")
                 .and()
                 .oauth2Login()
                     .clientRegistrationRepository(clientRegistrationRepository())
                     .authorizedClientService(oAuth2AuthorizedClientService())
                     .successHandler(customLoginSuccessHandler())
                     .loginPage("/login")
-//                    .failureUrl("/") // TODO 로그인 실패 시 회원가입 페이지로 리다이렉트
+                .defaultSuccessUrl("/recruits")
+                    .failureUrl("/") // TODO 로그인 실패 시 회원가입 페이지로 리다이렉트
 //                    .redirectionEndpoint()
                 .and()
                 .logout() // logout 이후 세션 전체 삭제 여부
