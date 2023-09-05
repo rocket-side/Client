@@ -1,23 +1,16 @@
 package com.rocket.front.auth.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rocket.front.auth.domain.response.MemberLoginInfoResponseDto;
 import com.rocket.front.member.adapter.MemberAdapter;
-import com.rocket.front.member.domain.response.MemberInfoResponse;
+import com.rocket.front.member.domain.response.MemberLoginInfoResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
-import java.util.Collection;
 import java.util.Collections;
 
 @Slf4j
@@ -48,7 +41,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     private MemberLoginInfoResponseDto getUser(String email) {
-        return memberAdapter.getMemberInfoByEmail(email);
+        return memberAdapter.getSignInMemberInfoByEmail(email);
     }
 
 }

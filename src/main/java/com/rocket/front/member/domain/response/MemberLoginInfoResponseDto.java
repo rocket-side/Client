@@ -1,16 +1,19 @@
-package com.rocket.front.auth.domain.response;
+package com.rocket.front.member.domain.response;
 
-import lombok.Builder;
+import com.rocket.front.member.dto.RoleDto;
 import lombok.Getter;
 
-@Builder
 @Getter
 public class MemberLoginInfoResponseDto {
+
     private Long memberSeq;
-    private String email;
+
     private String password;
+
+    private String email;
+
     private String nickname;
-    private Role roleResponseDto;
+
+    private RoleDto roleResponseDto;
+
 }
-
-

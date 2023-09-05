@@ -1,10 +1,10 @@
 package com.rocket.front.auth.service;
 
 
-import com.rocket.front.auth.domain.response.MemberLoginInfoResponseDto;
 import com.rocket.front.auth.utils.CustomOAuth2User;
 import com.rocket.front.auth.utils.OAuthAttributes;
 import com.rocket.front.member.adapter.MemberAdapter;
+import com.rocket.front.member.domain.response.MemberLoginInfoResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -58,7 +58,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     }
 
     private MemberLoginInfoResponseDto getUser(OAuthAttributes attributes) {
-        return memberAdapter.getMemberInfoByEmail(attributes.getEmail());
+        return memberAdapter.getSignInMemberInfoByEmail(attributes.getEmail());
     }
 
 

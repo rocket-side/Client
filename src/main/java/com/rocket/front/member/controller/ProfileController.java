@@ -28,8 +28,8 @@ public class ProfileController {
      * @return 성공 시 프로필 템플릿, 실패 시 공고 목록 템플릸
      * @throws MemberNotFoundException 멤버를 찾을 수 없는 경우 발생
      */
-    @GetMapping("/member/{seq}")
-    public String getProfile(@PathVariable Long seq, Model model) {
+    @GetMapping("/{memberSeq}")
+    public String getProfile(@PathVariable("memberSeq") Long seq, Model model) {
         try {
             MemberInfoResponse memberInfo = memberService.getMemberInfo(seq);
             model.addAttribute("memberInfo", memberInfo);
