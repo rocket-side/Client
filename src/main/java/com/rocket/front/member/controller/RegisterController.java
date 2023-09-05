@@ -6,10 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -20,18 +18,33 @@ public class RegisterController {
 
     private final MemberService memberService;
 
+    /**
+     * 회원 가입 - 필수 정보 입력
+     * @return 회원 가입 첫번째 템플릿
+     */
     @GetMapping("/signup")
     public String getRegisterFirstForm() {
         return "signup-first";
     }
 
+    /**
+     * 회원 가입 - 필수가 아닌 정보 입력
+     * @return 회원 가입 두번째 템플릿
+     */
     @GetMapping("/signup2")
     public String getRegisterSecondForm() {
         return "signup-second";
     }
 
+    /**
+     * 회원 가입 (멤버 추가)
+     * @param request 회원 가입 요청 객체
+     * @param bindingResult 바인딩 결과
+     * @param model 모델 객체
+     * @return 성공 시 로그인 템플릿, 실패 시 회원 가입 템플릿
+     */
     @PostMapping
-    public String signup(@Valid MemberSignUpRequest request, BindingResult bindingResult, Model model) {
+    public String signup(@Valid MemberSignUpRequest request, Model model, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             model.addAttribute("member", request);
 
@@ -50,6 +63,5 @@ public class RegisterController {
 
         return "login";
     }
-
 
 }

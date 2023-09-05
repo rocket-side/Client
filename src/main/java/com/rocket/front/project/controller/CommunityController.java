@@ -1,4 +1,4 @@
-package com.rocket.front.member.controller;
+package com.rocket.front.project.controller;
 
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
