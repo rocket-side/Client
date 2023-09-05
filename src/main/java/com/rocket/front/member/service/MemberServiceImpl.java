@@ -2,6 +2,9 @@ package com.rocket.front.member.service;
 
 import com.rocket.front.member.adapter.MemberAdapter;
 import com.rocket.front.member.domain.request.MemberSignUpRequest;
+import com.rocket.front.member.domain.response.MemberInfoResponse;
+import com.rocket.front.member.domain.response.PositionResponse;
+import com.rocket.front.member.domain.response.PreferenceResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +27,21 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void signUp(MemberSignUpRequest request) {
         memberAdapter.signUp(request);
+    }
+
+    @Override
+    public MemberInfoResponse getMemberInfo(Long memberSeq) {
+        return memberAdapter.getMemberInfoBySeq(memberSeq);
+    }
+
+    @Override
+    public PreferenceResponse getMemberPreference(Long memberSeq) {
+        return memberAdapter.getPreference(memberSeq);
+    }
+
+    @Override
+    public PositionResponse getMemberPosition(Long memberSeq) {
+        return memberAdapter.getPosition(memberSeq);
     }
 
     @Override

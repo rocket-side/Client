@@ -36,35 +36,37 @@
 </nav>
 <!-- Page Content-->
 <div class="container-fluid p-0">
+  <div class="social-icons" style="position: fixed; top: 20px; right: 20px;">
+    <a href="javascript:history.back();" class="login100-social-item bg4">
+      <img th:src="@{/img/exit.png}" width="50" height="50">
+    </a>
+  </div>
   <!-- About-->
   <section class="resume-section" id="about">
+
     <div class="resume-section-content">
       <h1 class="mb-0">
-        은지
-        <span class="text-primary">문</span>
-        <span class=""><img class="update-icon" src="/img/update_button.jpg" href="/..." alt="..." /></span>
+        <span class="text-primary" th:text="${memberInfo.nickname}"></span>
+        <span><img class="update-icon" src="/img/update_button.jpg" href="#!" alt="fix"/></span>
       </h1>
       <div class="subheading mb-5">
-        <a href="mailto:name@email.com">활발한 편</a>
+        <a th:text="${memberInfo.lastAccessAt}"></a>
       </div>
       <div>
-        <p> Position : UI/UX 기획</p>
-        <p> LEVEL : 중수(N 년차)</p>
-        <p> On/Off-line : 온,오프라인 모두 가능</p>
-        <p> Preference : 뷰티/패션</p>
+        <p> Position : <span th:text="${memberPosition.name}"></span></p>
+        <p> LEVEL : <span th:text="${memberInfo.level.name}"></span></p>
+        <p> On/Off-line : <span th:text="${memberInfo.isOnline}"></span></p>
+        <p> Preference : <span th:text="${memberPreference.name}"></span></p>
 
       </div>
-      <p class="lead mb-5">I am experienced in leveraging agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.</p>
+      <p class="lead mb-5" th:text="${memberInfo.info}"></p>
       <div class="social-icons">
         <a class="social-icon" href="#!"><i class="fab fa-linkedin-in"></i></a>
         <a class="social-icon" href="#!"><i class="fab fa-github"></i></a>
         <a class="social-icon" href="#!"><i class="fab fa-twitter"></i></a>
         <a class="social-icon" href="#!"><i class="fab fa-facebook-f"></i></a>
-<!--        <a class="social-icon" href="#!"><i class="fab fa-linkedin-in"></i></a>-->
         <a class="social-icon" href="#!"><i class="fab fa-github"></i></a>
-        <a class="h3">ansdmswl0722@github.com</a>
-<!--        <a class="social-icon" href="#!"><i class="fab fa-twitter"></i></a>-->
-<!--        <a class="social-icon" href="#!"><i class="fab fa-facebook-f"></i></a>-->
+        <a class="h3" th:text="${memberInfo.githubLink}">@github.com</a>
       </div>
     </div>
   </section>
