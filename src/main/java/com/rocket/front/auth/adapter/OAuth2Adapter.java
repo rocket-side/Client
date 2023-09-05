@@ -1,5 +1,6 @@
 package com.rocket.front.auth.adapter;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
+@RequiredArgsConstructor
 public class OAuth2Adapter {
     private final RestTemplate restTemplate = new RestTemplate();
 

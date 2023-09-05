@@ -5,9 +5,12 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class MemberLoginProcResponseDto {
+public class MemberLoginInfoResponseDto {
     private Long memberSeq;
     private String email;
     private String password;
-    private String role;
+    private String nickname;
+    private Role roleResponseDto;
 }
+
+

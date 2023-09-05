@@ -1,8 +1,7 @@
 package com.rocket.front.auth.utils;
 
 import com.rocket.front.auth.adapter.OAuth2Adapter;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -10,9 +9,11 @@ import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
+
 @Getter
 public class OAuthAttributes {
-
+    
+    // TODO 수정
     private static final OAuth2Adapter oAuth2Adapter = new OAuth2Adapter();
     private final Map<String,Object> attributes;
     private final String nameAttributeKey;

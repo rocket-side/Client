@@ -1,16 +1,18 @@
 package com.rocket.front.member.adapter;
 
+import com.rocket.front.auth.domain.response.MemberLoginInfoResponseDto;
 import com.rocket.front.member.domain.request.MemberSignUpRequest;
 import com.rocket.front.member.domain.request.PositionRegisterRequest;
 import com.rocket.front.member.domain.request.PreferenceRegisterRequest;
 import com.rocket.front.member.domain.response.*;
 import com.rocket.front.properties.MemberProperties;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -23,7 +25,7 @@ import java.util.Map;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@RequestMapping("/member/api/")
+//@RequestMapping("/member/api/")
 public class MemberAdapter {
 
     private final RestTemplate restTemplate;
@@ -108,12 +110,11 @@ public class MemberAdapter {
      * @return 조회된 멤버 정보
      * @HTTP method GET
      */
-    public MemberInfoResponse getMemberInfoByEmail(String email) {
+    public MemberLoginInfoResponseDto getMemberInfoByEmail(String email) {
         Map<String, Object> params = new HashMap<>();
-        params.put("email", email);
-        URI uri = getUri(params, "/email/{email}");
+        URI uri = getUri(params, "/member/api"+"/email/"+email);
 
-        ResponseEntity<MemberInfoResponse> responseEntity = restTemplate.getForEntity(uri, MemberInfoResponse.class);
+        ResponseEntity<MemberLoginInfoResponseDto> responseEntity = restTemplate.getForEntity(uri, MemberLoginInfoResponseDto.class);
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
             log.error("Error from getting Member by Email. status:{}, param:{}", responseEntity.getStatusCode(), email);
@@ -122,6 +123,8 @@ public class MemberAdapter {
 
         return responseEntity.getBody();
     }
+
+
 
     /**
      * 멤버 정보를 수정합니다.
@@ -413,3 +416,4 @@ public class MemberAdapter {
         return uriComponentsBuilder.build().encode().toUri();
     }
 }
+
