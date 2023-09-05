@@ -8,13 +8,12 @@
     <meta name="description" content="HTML5 website template">
     <meta name="keywords" content="global, template, html, sass, jquery">
     <meta name="author" content="Bucky Maler">
-    <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
 
 <div class="device-notification">
-    <a class="device-notification--logo" href="#0">
+    <a class="device-notification--logo" href="/recrutis">
         <img src="/img/logo.png" alt="Rocket">
         <p>Rocket</p>
     </a>
@@ -26,11 +25,11 @@
         <div id="viewport" class="l-viewport">
             <div class="l-wrapper">
                 <header class="header">
-                    <a class="header--logo" href="#0">
-                        <img src="/img/logo.png" width="40" height="38" alt="Rocket">
-                        <p>Rocket</p>
+                    <a class="header--logo" href="/recruits">
+                        <img src="/img/rocket-logo.png" width="120px" alt="Rocket">
+<!--                        <p>Rocket</p>-->
                     </a>
-                    <button class="header--cta cta">Go to Recruitment Now</button>
+                    <button onClick="location.href='/recruits'" class="header--cta cta">Go to Recruitment Now</button>
                     <div class="header--nav-toggle::after">
                         <div sec:authorize="!isAuthenticated()">
                             <button onClick="location.href='/login'" style="background-color: #0c0c0c; font-size: large">Sign in</button>
@@ -38,18 +37,7 @@
                         </div>
                         <div sec:authorize="isAuthenticated()">
 <!--                            <span style="background-color: #0c0c0c; font-size: large" sec:authentication="name"></span>-->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <span class="account-user-avatar" sec:authentication="name" style="background-color: #0c0c0c; font-size: large">
-                            </span>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">마이페이지</a></li>
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
-                                </ul>
-                            </li>
-<!--                            <button style="background-color: #0c0c0c; font-size: large">공고모집</button>-->
+                            <button onClick="location.href='/logout'" style="background-color: #0c0c0c; font-size: large">Logout</button>
                         </div>
                         <span></span>
                     </div>
@@ -66,7 +54,7 @@
                         <div class="intro">
                             <div class="intro--banner">
                                 <h1>Meet your<br>Perfect team<br>aboard the<br>Rocket</h1>
-                                <button onClick="location.href='/recruit'" class="cta">Go to Recruitment Now
+                                <button onClick="location.href='/recruits'" class="cta">Go to Recruitment Now
                                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 150 118" style="enable-background:new 0 0 150 118;" xml:space="preserve">
                   <g transform="translate(0.000000,118.000000) scale(0.100000,-0.100000)">
                     <path d="M870,1167c-34-17-55-57-46-90c3-15,81-100,194-211l187-185l-565-1c-431,0-571-3-590-13c-55-28-64-94-18-137c21-20,33-20,597-20h575l-192-193C800,103,794,94,849,39c20-20,39-29,61-29c28,0,63,30,298,262c147,144,272,271,279,282c30,51,23,60-219,304C947,1180,926,1196,870,1167z"/>

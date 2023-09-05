@@ -2,8 +2,8 @@ package com.rocket.front.auth.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rocket.front.auth.domain.response.MemberLoginInfoResponseDto;
 import com.rocket.front.member.adapter.MemberAdapter;
+import com.rocket.front.member.domain.response.MemberLoginInfoResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -29,8 +29,9 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         UserDetails user = (UserDetails) authentication.getPrincipal();
-        MemberLoginInfoResponseDto userInfo = memberAdapter.getMemberInfoByEmail(user.getUsername());
+        MemberLoginInfoResponseDto userInfo = memberAdapter.getSignInMemberInfoByEmail(user.getUsername());
 
+        // TODO 삭제 - userInfo 확인할려고
         try {
             System.out.println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(userInfo));
         } catch (JsonProcessingException e) {

@@ -1,13 +1,10 @@
 package com.rocket.front.member.adapter;
 
-import com.rocket.front.auth.domain.response.MemberLoginInfoResponseDto;
 import com.rocket.front.member.domain.request.MemberSignUpRequest;
 import com.rocket.front.member.domain.request.PositionRegisterRequest;
 import com.rocket.front.member.domain.request.PreferenceRegisterRequest;
 import com.rocket.front.member.domain.response.*;
 import com.rocket.front.properties.MemberProperties;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
@@ -109,10 +106,10 @@ public class MemberAdapter {
 //        URI uri = getUri(params, "/member/api"+"/email/"+email);
 
 //        ResponseEntity<MemberLoginInfoResponseDto> responseEntity = restTemplate.getForEntity(uri, MemberLoginInfoResponseDto.class);
-    public MemberSignInResponse signIn(String email) {
+    public MemberLoginInfoResponseDto getSignInMemberInfoByEmail(String email) {
         URI uri = getUri("/email/" + email);
 
-        ResponseEntity<MemberSignInResponse> responseEntity = restTemplate.getForEntity(uri, MemberSignInResponse.class);
+        ResponseEntity<MemberLoginInfoResponseDto> responseEntity = restTemplate.getForEntity(uri, MemberLoginInfoResponseDto.class);
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
             log.error("Error from Sign In. status:{}, param:{}", responseEntity.getStatusCode(), email);
