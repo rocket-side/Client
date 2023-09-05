@@ -1,18 +1,11 @@
 package com.rocket.front.auth.utils;
 
+import com.rocket.front.auth.adapter.OAuth2Adapter;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -20,6 +13,7 @@ import java.util.Objects;
 @Getter
 public class OAuthAttributes {
 
+    private static final OAuth2Adapter oAuth2Adapter = new OAuth2Adapter();
     private final Map<String,Object> attributes;
     private final String nameAttributeKey;
     private final String name;
@@ -49,7 +43,7 @@ public class OAuthAttributes {
     private static OAuthAttributes ofGithub(String userNameAttributeName, Map<String,Object> attributes, String accessToken) {
         String gEmail = (String) attributes.get("email");
         if(Objects.isNull(gEmail)){
-            gEmail = githubEmail(accessToken).stream()
+            gEmail = oAuth2Adapter.githubEmail(accessToken).stream()
                     .filter(userInfo -> (boolean) userInfo.get("primary").equals(true))
                     .map(userInfo -> (String) userInfo.get("email"))
                     .findFirst()
@@ -71,31 +65,7 @@ public class OAuthAttributes {
                 .build();
     }
 
-    public static List<Map<String,Object>> githubEmail(String accessToken) {
-        RestTemplate restTemplate = new RestTemplate();
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-
-        httpHeaders.setBearerAuth(accessToken);
-        httpHeaders.set("Accept","application/vnd.github+json");
-//        httpHeaders.add("X-GitHub-Api-Version", "2022-11-28");
-
-        List<Map<String,Object>> response = new ArrayList<>();
-
-        HttpEntity<String> requestEntity = new HttpEntity<>(accessToken,httpHeaders);
-        ResponseEntity<List<Map<String,Object>>> exchange = restTemplate.exchange("https://api.github.com/user/emails",
-                HttpMethod.GET,
-                requestEntity,
-                new ParameterizedTypeReference<>() {
-                });
-//        ResponseEntity<List<GithubUserEmail>> exchange = restTemplate.exchange("https://api.github.com/user/emails",
-//                HttpMethod.GET,
-//                requestEntity,
-//                new ParameterizedTypeReference<>() {
-//                });
-
-        return exchange.getBody();
-    }
 
     private static OAuthAttributes ofGoogle(String userNameAttributeName, Map<String,Object> attributes) {
 

@@ -2,6 +2,7 @@ package com.rocket.front.member.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -13,8 +14,8 @@ public class RecruitController {
      * @return 공고글 조회 템플릿
      */
     @GetMapping("/{recruit-seq}")
-    public String getRecruit() {
-        return "recruit-read";
+    public String getRecruit(@PathVariable("recruit-seq") String parameter) {
+        return "recruit/recruit-read";
     }
 
     /**
@@ -22,8 +23,8 @@ public class RecruitController {
      * @return 공고글 팀원 템플릿
      */
     @GetMapping("/{recruit-seq}/crews")
-    public String getRecruitMember() {
-        return "project-member";
+    public String getRecruitMember(@PathVariable("recruit-seq") String parameter) {
+        return "recruit/project-member";
     }
 
     /**
@@ -31,8 +32,8 @@ public class RecruitController {
      * @return 공고글 지원자 템플릿
      */
     @GetMapping("/{recruit-seq}/applicants")
-    public String getRecruitApplicant() {
-        return "recruit-applicant";
+    public String getRecruitApplicant(@PathVariable("recruit-seq") String parameter) {
+        return "recruit/recruit-applicant";
     }
 
 //    /**
@@ -50,6 +51,6 @@ public class RecruitController {
      */
     @GetMapping
     public String getRecruitList() {
-        return "project-recruit-list";
+        return "recruit/recruit-list";
     }
 }

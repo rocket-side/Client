@@ -28,11 +28,10 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        OAuth2UserService oAuth2UserService = new DefaultOAuth2UserService();
+        OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = oAuth2UserService.loadUser(userRequest);
         OAuth2AccessToken oAuth2AccessToken = userRequest.getAccessToken();
 
-        // 네이버인지 카카오인지 구글인지....구분해주는
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
 
         // TODO 이거 왜필요함????

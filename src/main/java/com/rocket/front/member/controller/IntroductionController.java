@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/rocket/introduction")
+@RequestMapping("/introduction")
 public class IntroductionController {
 
     /**
@@ -15,7 +15,7 @@ public class IntroductionController {
      */
     @GetMapping("/{recruit-seq}")
     public String getIntroduction() {
-        return "official-notice-page";
+        return "introduction/introduction-read";
     }
 
     /**
@@ -24,7 +24,7 @@ public class IntroductionController {
      */
     @GetMapping("/register")
     public String getIntroductionRegisterForm() {
-        return "official-notice-write";
+        return "introduction/introduction-write";
     }
 
     /**
@@ -33,6 +33,6 @@ public class IntroductionController {
      */
     @GetMapping
     public String getIntroductionList() {
-        return "project-intro-list";
+        return "introduction/introduction-list";
     }
 }
