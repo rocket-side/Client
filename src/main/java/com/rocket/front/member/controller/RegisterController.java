@@ -22,12 +22,12 @@ public class RegisterController {
 
     @GetMapping("/signup")
     public String getRegisterFirstForm() {
-        return "register_first";
+        return "signup-first";
     }
 
     @GetMapping("/signup2")
     public String getRegisterSecondForm() {
-        return "register_second";
+        return "signup-second";
     }
 
     @PostMapping
@@ -40,7 +40,7 @@ public class RegisterController {
                 model.addAttribute(key, validatorError.get(key));
             }
 
-            return "register_first";
+            return "signup-first";
         }
 
         String encodedPassword = memberService.passwordEncoding(request.getPassword());

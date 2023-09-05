@@ -14,6 +14,6 @@ public class SearchController {
      */
     @GetMapping
     public String getSearch() {
-        return "search";
+        return "search-result";
     }
 }

@@ -5,16 +5,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/rocket")
 public class HomeController {
 
     /**
      * 시작페이지
      * @return 시작페이지 템플릿
      */
-    @GetMapping
+    @GetMapping({"","/"})
     public String getHome() {
-        return "landing-page-main";
+        return "home";
     }
 
 }
