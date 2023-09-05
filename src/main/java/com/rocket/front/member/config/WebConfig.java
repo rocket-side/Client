@@ -14,7 +14,7 @@ public class WebConfig {
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder
-//                .requestFactory(HttpComponentsClientHttpRequestFactory::new)
+                .requestFactory(HttpComponentsClientHttpRequestFactory::new)
                 .setReadTimeout(Duration.ofSeconds(3L))
                 .setConnectTimeout(Duration.ofSeconds(3L))
                 .build();
