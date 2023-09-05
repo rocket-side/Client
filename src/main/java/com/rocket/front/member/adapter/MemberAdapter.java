@@ -18,19 +18,16 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-//@RequestMapping("/member/api/")
 public class MemberAdapter {
 
-    private final RestTemplate restTemplate;
-
     private final MemberProperties memberProperties;
+
+    private final RestTemplate restTemplate;
 
     /**
      * email을 통해서 해당 계정이 중복되었는지 조회합니다.
@@ -40,9 +37,7 @@ public class MemberAdapter {
      * @HTTP method GET
      */
     public boolean existByEmail(String email) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("email", email);
-        URI uri = getUri(params, "/exist/{email}");
+        URI uri = getUri("/exist/" + email);
 
         ResponseEntity<Boolean> responseEntity = restTemplate.getForEntity(uri, Boolean.class);
 
@@ -69,7 +64,7 @@ public class MemberAdapter {
     public void signUp(@Valid MemberSignUpRequest request) {
         HttpEntity<MemberSignUpRequest> requestEntity = new HttpEntity<>(request, getHttpHeader());
 
-        URI uri = getUri(null, "/register");
+        URI uri = getUri("/register");
 
         ResponseEntity<Void> responseEntity =
                 restTemplate.exchange(uri, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<Void>() {
@@ -82,16 +77,14 @@ public class MemberAdapter {
     }
 
     /**
-     * seq를 이용하여 멤버를 조회합니다. (로그인용)
+     * seq를 이용하여 멤버를 조회합니다.
      *
      * @param seq 멤버 시퀀스
      * @return 조회된 멤버 정보
      * @HTTP method GET
      */
     public MemberInfoResponse getMemberInfoBySeq(Long seq) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("seq", seq);
-        URI uri = getUri(params, "/seq/{seq}");
+        URI uri = getUri("/seq/" + seq);
 
         ResponseEntity<MemberInfoResponse> responseEntity = restTemplate.getForEntity(uri, MemberInfoResponse.class);
 
@@ -104,21 +97,26 @@ public class MemberAdapter {
     }
 
     /**
-     * email을 이용하여 멤버를 조회합니다.
+     * email을 이용하여 멤버를 조회합니다. (로그인용)
      *
      * @param email 멤버 이메일
      * @return 조회된 멤버 정보
      * @HTTP method GET
      */
-    public MemberLoginInfoResponseDto getMemberInfoByEmail(String email) {
-        Map<String, Object> params = new HashMap<>();
-        URI uri = getUri(params, "/member/api"+"/email/"+email);
+// TODO feature/login-principal
+//    public MemberLoginInfoResponseDto getMemberInfoByEmail(String email) {
+//        Map<String, Object> params = new HashMap<>();
+//        URI uri = getUri(params, "/member/api"+"/email/"+email);
 
-        ResponseEntity<MemberLoginInfoResponseDto> responseEntity = restTemplate.getForEntity(uri, MemberLoginInfoResponseDto.class);
+//        ResponseEntity<MemberLoginInfoResponseDto> responseEntity = restTemplate.getForEntity(uri, MemberLoginInfoResponseDto.class);
+    public MemberSignInResponse signIn(String email) {
+        URI uri = getUri("/email/" + email);
+
+        ResponseEntity<MemberSignInResponse> responseEntity = restTemplate.getForEntity(uri, MemberSignInResponse.class);
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            log.error("Error from getting Member by Email. status:{}, param:{}", responseEntity.getStatusCode(), email);
-            throw new RuntimeException("Error from getting Member by Email. " + responseEntity.getStatusCode() + ", " + email);
+            log.error("Error from Sign In. status:{}, param:{}", responseEntity.getStatusCode(), email);
+            throw new RuntimeException("Error from Sign In. " + responseEntity.getStatusCode() + ", " + email);
         }
 
         return responseEntity.getBody();
@@ -136,9 +134,7 @@ public class MemberAdapter {
     public void updateMemberInfo(Long seq, MemberSignUpRequest request) {
         HttpEntity<MemberSignUpRequest> requestEntity = new HttpEntity<>(request, getHttpHeader());
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("seq", seq);
-        URI uri = getUri(params, "/update/{seq}");
+        URI uri = getUri("/update/" + seq);
 
         ResponseEntity<Void> responseEntity =
                 restTemplate.exchange(uri, HttpMethod.PATCH, requestEntity, new ParameterizedTypeReference<Void>() {
@@ -157,9 +153,7 @@ public class MemberAdapter {
      * @HTTP method DELETE
      */
     public void deleteMember(Long seq) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("seq", seq);
-        URI uri = getUri(params, "/delete/{seq}");
+        URI uri = getUri("/delete/" + seq);
 
         ResponseEntity<Void> responseEntity = restTemplate.exchange(uri, HttpMethod.DELETE, null, new ParameterizedTypeReference<Void>() {
         });
@@ -178,9 +172,7 @@ public class MemberAdapter {
      * @HTTP method GET
      */
     public LevelResponse getLevel(Long seq) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("seq", seq);
-        URI uri = getUri(params, "/level/{seq}");
+        URI uri = getUri("/level/" + seq);
 
         ResponseEntity<LevelResponse> responseEntity = restTemplate.getForEntity(uri, LevelResponse.class);
 
@@ -200,10 +192,7 @@ public class MemberAdapter {
      * @HTTP method PATCH
      */
     public void updateLevel(Long memberSeq, Long levelSeq) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("member_seq", memberSeq);
-        params.put("level_seq", levelSeq);
-        URI uri = getUri(params, "/level/update/{member_seq}/{level_seq}");
+        URI uri = getUri("/level/update/" + memberSeq + "/" + levelSeq);
 
         ResponseEntity<Void> responseEntity = restTemplate.exchange(uri, HttpMethod.PATCH, null, new ParameterizedTypeReference<Void>() {
         });
@@ -222,9 +211,7 @@ public class MemberAdapter {
      * @HTTP method GET
      */
     public PreferenceResponse getPreference(Long seq) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("seq", seq);
-        URI uri = getUri(params, "/preference/{seq}");
+        URI uri = getUri("/preference/" + seq);
 
         ResponseEntity<PreferenceResponse> responseEntity = restTemplate.getForEntity(uri, PreferenceResponse.class);
 
@@ -246,9 +233,7 @@ public class MemberAdapter {
     public void registerPreference(Long memberSeq, @Valid PreferenceRegisterRequest request) {
         HttpEntity<PreferenceRegisterRequest> requestEntity = new HttpEntity<>(request, getHttpHeader());
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("member_seq", memberSeq);
-        URI uri = getUri(params, "/preference/register/{member_seq}");
+        URI uri = getUri("/preference/register/" + memberSeq);
 
         ResponseEntity<Void> responseEntity = restTemplate.exchange(uri, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<Void>() {
         });
@@ -267,10 +252,7 @@ public class MemberAdapter {
      * @HTTP method DELETE
      */
     public void deletePreference(Long memberSeq, Long preferenceSeq) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("member_seq", memberSeq);
-        params.put("preference_seq", preferenceSeq);
-        URI uri = getUri(params, "/preference/delete/{member_seq}/{preference_seq}");
+        URI uri = getUri("/preference/delete/" + memberSeq + "/" + preferenceSeq);
 
         ResponseEntity<Void> responseEntity = restTemplate.exchange(uri, HttpMethod.DELETE, null, new ParameterizedTypeReference<Void>() {
         });
@@ -289,9 +271,7 @@ public class MemberAdapter {
      * @HTTP method GET
      */
     public RoleResponse getRole(Long seq) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("seq", seq);
-        URI uri = getUri(params, "/role/{seq}");
+        URI uri = getUri("/role/" + seq);
 
         ResponseEntity<RoleResponse> responseEntity = restTemplate.getForEntity(uri, RoleResponse.class);
 
@@ -311,10 +291,7 @@ public class MemberAdapter {
      * @HTTP method PATCH
      */
     public void updateRole(Long memberSeq, Long roleSeq) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("member_seq", memberSeq);
-        params.put("role_seq", roleSeq);
-        URI uri = getUri(params, "/role/update/{member_seq}/{role_seq}");
+        URI uri = getUri("/role/update/" + memberSeq + "/" + roleSeq);
 
         ResponseEntity<Void> responseEntity = restTemplate.exchange(uri, HttpMethod.PATCH, null, new ParameterizedTypeReference<Void>() {
         });
@@ -333,9 +310,7 @@ public class MemberAdapter {
      * @HTTP method GET
      */
     public PositionResponse getPosition(Long seq) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("seq", seq);
-        URI uri = getUri(params, "/position/{seq}");
+        URI uri = getUri("/position/" + seq);
 
         ResponseEntity<PositionResponse> responseEntity = restTemplate.getForEntity(uri, PositionResponse.class);
 
@@ -357,9 +332,7 @@ public class MemberAdapter {
     public void registerPosition(Long memberSeq, @Valid PositionRegisterRequest request) {
         HttpEntity<PositionRegisterRequest> requestEntity = new HttpEntity<>(request, getHttpHeader());
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("member_seq", memberSeq);
-        URI uri = getUri(params, "/position/register/{member_seq}");
+        URI uri = getUri("/position/register/" + memberSeq);
 
         ResponseEntity<Void> responseEntity = restTemplate.exchange(uri, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<Void>() {
         });
@@ -378,10 +351,7 @@ public class MemberAdapter {
      * @HTTP method DELETE
      */
     public void deletePosition(Long memberSeq, Long positionSeq) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("member_seq", memberSeq);
-        params.put("position_seq", positionSeq);
-        URI uri = getUri(params, "/position/delete/{member_seq}/{position_seq}");
+        URI uri = getUri("/position/delete/" + memberSeq + "/" + positionSeq);
 
         ResponseEntity<Void> responseEntity = restTemplate.exchange(uri, HttpMethod.DELETE, null, new ParameterizedTypeReference<Void>() {
         });
@@ -400,18 +370,12 @@ public class MemberAdapter {
         return httpHeaders;
     }
 
-    public URI getUri(Map<String, Object> params, String path) {
+    public URI getUri(String path) {
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder
-                .fromPath(path)
+                .fromPath("/member/api/" + path)
                 .scheme("http")
                 .host(memberProperties.getHost())
                 .port(memberProperties.getPort());
-
-        if (params != null) {
-            for (Map.Entry<String, Object> entry : params.entrySet()) {
-                uriComponentsBuilder.queryParam(entry.getKey(), entry.getValue());
-            }
-        }
 
         return uriComponentsBuilder.build().encode().toUri();
     }

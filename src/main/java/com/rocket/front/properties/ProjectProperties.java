@@ -6,10 +6,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "front")
-public class FrontProperties {
+@ConfigurationProperties(prefix = "project")
+public class ProjectProperties {
 
     private String host = "localhost";
 
-    private Integer port = 8080;
+    private Integer port = 8989;
 }
