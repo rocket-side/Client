@@ -2,6 +2,7 @@ package com.rocket.front.project.recruit.service;
 
 import com.rocket.front.project.recruit.domain.request.AccessUserRequest;
 import com.rocket.front.project.recruit.domain.response.RecruitCardResponse;
+import com.rocket.front.project.recruit.domain.response.RecruitResponse;
 import com.rocket.front.project.recruit.domain.response.RecruitTagResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,8 @@ import java.util.Map;
 
 @Service
 public interface RecruitService {
+
+    RecruitResponse getRecruit(Long recruitSeq);
 
     Map<String, String> validateHandling(BindingResult bindingResult);
 

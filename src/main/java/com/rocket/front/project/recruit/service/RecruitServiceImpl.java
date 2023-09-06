@@ -3,6 +3,7 @@ package com.rocket.front.project.recruit.service;
 import com.rocket.front.project.recruit.adapter.RecruitAdapter;
 import com.rocket.front.project.recruit.domain.request.AccessUserRequest;
 import com.rocket.front.project.recruit.domain.response.RecruitCardResponse;
+import com.rocket.front.project.recruit.domain.response.RecruitResponse;
 import com.rocket.front.project.recruit.domain.response.RecruitTagResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,11 @@ import java.util.Map;
 public class RecruitServiceImpl implements RecruitService {
 
     private final RecruitAdapter recruitAdapter;
+
+    @Override
+    public RecruitResponse getRecruit(Long recruitSeq) {
+        return recruitAdapter.getRecruit(recruitSeq);
+    }
 
     @Override
     public Map<String, String> validateHandling(BindingResult bindingResult) {

@@ -71,7 +71,8 @@ public class RecruitAdapter {
 
     /**
      * 모든 태그 종류를 조회
-     * @return
+     * @return 전체 태그 목록 응답
+     * @throws RuntimeException 요청 실패 시 발생
      */
     public RecruitTagResponse getRecruitTagList() {
         Map<String, Object> params = new HashMap<>();
@@ -87,21 +88,54 @@ public class RecruitAdapter {
         return responseEntity.getBody();
     }
 
-    public RecruitResponse getRecruit(String recruitSeq) {
+    /**
+     * 해당 공고 조회
+     * @param recruitSeq 공고글 시퀀스
+     * @return 공고글 정보 응답
+     * @throws RuntimeException 요청 실패 시 발생
+     */
+    public RecruitResponse getRecruit(Long recruitSeq) {
         Map<String, Object> params = new HashMap<>();
         URI uri = getUri(params, RECRUIT_URI + "/" + recruitSeq);
 
         ResponseEntity<RecruitResponse> responseEntity = restTemplate.getForEntity(uri, RecruitResponse.class);
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-//            log.error("Error from getting Member Preference. status: {}, param: {}", responseEntity.getStatusCode(), seq);
-//            throw new RuntimeException("Error from getting Member Preference. " + responseEntity.getStatusCode() + ", " + seq);
+            log.error("Error from getting Recruit. status: {}, recruitSeq: {}", responseEntity.getStatusCode(), recruitSeq);
+            throw new RuntimeException("Error from getting Recruit. " + responseEntity.getStatusCode() + ", " + recruitSeq);
         }
 
         return responseEntity.getBody();
     }
 
+    /**
+     * 공고 수정 or 삭제시 접근 멤버가 공고 생성자가 맞는지 확인
+     * @param recruitSeq 공고글 시퀀스
+     * @param request 사용자 액세스 요청
+     * @return 공고 생성자 여부 응답
+     * @throws RuntimeException 요청 실패 시 발생
+     */
+    public boolean isGroupLeader(Long recruitSeq, @Valid AccessUserRequest request) {
+        HttpEntity<AccessUserRequest> requestEntity = new HttpEntity<>(request, getHttpHeader());
 
+        Map<String, Object> params = new HashMap<>();
+        URI uri = getUri(params, RECRUIT_URI + "/" + recruitSeq);
+
+        ResponseEntity<Boolean> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, Boolean.class);
+
+        if(responseEntity.getStatusCode() != HttpStatus.OK) {
+            log.error("Error from getting isGroupleader. status:{}, recruitSeq:{}", responseEntity.getStatusCode(), recruitSeq);
+            throw new RuntimeException("Error from getting isGroupleader. " + responseEntity.getStatusCode() + ", " + recruitSeq);
+        }
+
+        Boolean responseEntityBody = responseEntity.getBody();
+        if (responseEntityBody != null) {
+            return responseEntityBody;
+        } else {
+            log.error("ResponseEntity body is null:{}, recruitSeq:{}", uri, recruitSeq);
+            throw new RuntimeException("ResponseEntity body is null: " + uri + recruitSeq);
+        }
+    }
 
     public static HttpHeaders getHttpHeader() {
         HttpHeaders httpHeaders = new HttpHeaders();
