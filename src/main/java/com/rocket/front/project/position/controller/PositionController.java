@@ -4,7 +4,9 @@ import com.rocket.front.project.position.domain.response.ApplicantsResponse;
 import com.rocket.front.project.position.domain.response.ApplyStatusResponse;
 import com.rocket.front.project.position.domain.response.RecruitCrewResponse;
 import com.rocket.front.project.position.service.PositionService;
+import com.rocket.front.project.recruit.domain.response.RecruitResponse;
 import com.rocket.front.project.recruit.exception.RecruitNotFoundException;
+import com.rocket.front.project.recruit.service.RecruitService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ import java.util.List;
 public class PositionController {
 
     private final PositionService positionService;
+
+    private final RecruitService recruitService;
 
     /**
      * 공고글 모집 현황 정보 조회
@@ -84,6 +88,12 @@ public class PositionController {
         try {
             List<RecruitCrewResponse> recruitCrewResponseList = positionService.getRecruitCrewList(recruitSeq);
             model.addAttribute("recruitCrewList", recruitCrewResponseList);
+
+            RecruitResponse recruitInfo = recruitService.getRecruit(recruitSeq);
+            model.addAttribute("recruitInfo", recruitInfo);
+
+            List<ApplyStatusResponse> applyStatusResponseList = positionService.getApplicantStatusList(recruitSeq);
+            model.addAttribute("applyStatusList", applyStatusResponseList);
 
             return "recruit/project-member";
         } catch (RecruitNotFoundException e) {
