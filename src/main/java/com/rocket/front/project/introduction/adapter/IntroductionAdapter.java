@@ -1,5 +1,8 @@
 package com.rocket.front.project.introduction.adapter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rocket.front.project.introduction.domain.request.AccessUser;
 import com.rocket.front.project.introduction.domain.response.CommentResponse;
 import com.rocket.front.project.introduction.domain.response.IntroductionResponse;
 import com.rocket.front.properties.ProjectProperties;
@@ -27,43 +30,11 @@ public class IntroductionAdapter {
 
     private final String RECRUIT_URI = "/project/api/introduces";
 
-//    public Page<RecruitCardResponse> getIntroductionList(Pageable pageable) {
-//        Map<String, Object> params = new HashMap<>();
-//        params.put("page",pageable.getPageNumber());
-//        URI uri = getUri(params, RECRUIT_URI);
-//
-//        log.info(":::::recruit-list check   {}:::::",uri.toString());
-//
-//        ResponseEntity<Page<RecruitCardResponse>> responseEntity = restTemplate.exchange(
-//                uri,
-//                HttpMethod.GET,
-//                null,
-//                new ParameterizedTypeReference<Page<RecruitCardResponse>>() {}
-//        );
-//
-//        if (responseEntity.getStatusCode() != HttpStatus.OK) {
-////            log.error("Error from getting Member Preference. status: {}, param: {}", responseEntity.getStatusCode(), seq);
-////            throw new RuntimeException("Error from getting Member Preference. " + responseEntity.getStatusCode() + ", " + seq);
-//            //TODO 시연이한테 물어보자
-//        }
-//
-//        return responseEntity.getBody();
-//    }
-
-//    public RecruitTagResponse getRecruitTagList() {
-//        Map<String, Object> params = new HashMap<>();
-//        URI uri = getUri(params, RECRUIT_URI + "/types");
-//
-//        ResponseEntity<RecruitTagResponse> responseEntity = restTemplate.getForEntity(uri, RecruitTagResponse.class);
-//
-//        if (responseEntity.getStatusCode() != HttpStatus.OK) {
-////            log.error("Error from getting Member Preference. status: {}, param: {}", responseEntity.getStatusCode(), seq);
-////            throw new RuntimeException("Error from getting Member Preference. " + responseEntity.getStatusCode() + ", " + seq);
-//        }
-//
-//        return responseEntity.getBody();
-//    }
-
+    /**
+     * 해당 소개글 조회
+     * @param recruitSeq
+     * @return IntroductionResponse 200
+     */
     public IntroductionResponse getIntroduction(String recruitSeq) {
         Map<String, Object> params = new HashMap<>();
         URI uri = getUri(params, RECRUIT_URI + "/" + recruitSeq);
@@ -78,7 +49,11 @@ public class IntroductionAdapter {
         return responseEntity.getBody();
     }
 
-    // TODO session에 저장된 memberSeq 가져와서 넣어줘야 함 객체로???
+    /**
+     *  해당 소개글의 모든 댓글 조회
+     * @param recruitSeq
+     * @return
+     */
     public List<CommentResponse> getIntroductionComments(String recruitSeq) {
         Map<String, Object> params = new HashMap<>();
         URI uri = getUri(params, RECRUIT_URI + "/" + recruitSeq + "/comments");
@@ -91,7 +66,69 @@ public class IntroductionAdapter {
         );
 
         return responseEntity.getBody();
+    }
 
+    /**
+     *  소개글의 접근하는 유저가 소개글 작성자(공고리더)인지 확인
+     * @param recruitSeq
+     * @param
+     * @return
+     */
+    public Boolean isIntroductionWriter(String recruitSeq,String memberSeq){
+        Map<String, Object> params = new HashMap<>();
+        URI uri = getUri(params, RECRUIT_URI + "/iswriter/" + recruitSeq);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+        Long parsedMemberSeq = null;
+        if (memberSeq != null) {
+            parsedMemberSeq = Long.parseLong(memberSeq);
+        }
+        HttpEntity<AccessUser> requestEntity = new HttpEntity<>(new AccessUser(parsedMemberSeq),httpHeaders);
+
+        try {
+            System.out.println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(requestEntity));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        ResponseEntity<Boolean> responseEntity = restTemplate.exchange(
+                uri,
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<Boolean>() {}
+        );
+
+        return responseEntity.getBody();
+    }
+
+
+
+    /**
+     * 댓글에 접근하는 유저가 댓글작성자 인지 확인
+     * @param commentSeq
+     * @param memberSeq
+     * @return
+     */
+    public Boolean isRedirectUser(String commentSeq, String memberSeq){
+        Map<String, Object> params = new HashMap<>();
+        URI uri = getUri(params, RECRUIT_URI + "/isredirect/" + commentSeq);
+        HttpHeaders httpHeaders = getHttpHeader();
+
+        Long parsedMemberSeq = null;
+        if (memberSeq != null) {
+            parsedMemberSeq = Long.parseLong(memberSeq);
+        }
+
+        HttpEntity<AccessUser> requestEntity = new HttpEntity<>(new AccessUser(parsedMemberSeq),httpHeaders);
+
+        ResponseEntity<Boolean> responseEntity = restTemplate.exchange(
+                uri,
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<Boolean>() {}
+        );
+        return responseEntity.getBody();
     }
 
 

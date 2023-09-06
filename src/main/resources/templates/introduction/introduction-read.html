@@ -7,8 +7,6 @@
     <meta name="author" content="" />
     <title>Blog Home </title>
     <!-- Favicon-->
-<!--    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />-->
-<!--    <link rel="icon" type="image/x-icon" href="/project-favi.ico" />-->
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
@@ -32,9 +30,9 @@
 <header class="py-5 bg-light border-bottom mb-4">
     <div class="container">
         <div class="text-center my-5">
-            <h1 class="fw-bolder">IOS 개발자 스터디</h1>
-            <p class="lead mb-3">다양한 플랫폼 서비스를 만들 수 있는 프로젝트팀</p>
-            <button class="btn btn-outline-success">모집중</button>
+            <h1 class="fw-bolder" th:text="${introduction.recruit.name}"></h1>
+            <p class="lead mb-3" th:text="${introduction.recruit.info}"></p>
+            <button class="btn btn-outline-success" th:text="${introduction.recruit.status}"></button>
         </div>
     </div>
 </header>
@@ -44,16 +42,17 @@
         <!-- Blog entries-->
         <div class="col-lg-8">
             <!-- Featured blog post-->
-            <div class="btn-group" role="group" aria-label="Basic example">
+
+            <div class="btn-group" role="group" aria-label="Basic example" th:if="${isWriter}">
                 <button type="button" class="btn btn-secondary">수정</button>
             </div>
             <div class="border p-lg-3 rounded example-element mw-100 mb-4">
                 <div class="card-body">
-                    <div class="small text-muted rightContainer">January 1, 2023</div>
+<!--                    <div class="small text-muted rightContainer" th:text="${introduction.createdAt}"></div>-->
                     <h2 class="h1">소개</h2>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                    <a href="#!"><img class="card-img-top" src="https://velog.velcdn.com/images/pexe99/post/d160af60-0551-46b8-8bf1-2f6b93ad215d/image.png" alt="..." /></a>
-                    <h2 class="h1 p-1">기술/언어</h2>
+                    <p class="card-text" th:text="${introduction.content}"></p>
+<!--                    <a href="#!"><img class="card-img-top" src="https://velog.velcdn.com/images/pexe99/post/d160af60-0551-46b8-8bf1-2f6b93ad215d/image.png" alt="..." /></a>-->
+<!--                    <h2 class="h1 p-1" >기술/언어</h2>-->
                     <ul class="list-inline dev-icons">
                         <li class="list-inline-item"><i class="fab fa-html5"></i></li>
                         <li class="list-inline-item"><i class="fab fa-css3-alt"></i></li>
@@ -77,10 +76,10 @@
             <span class="d-none d-lg-block">
         <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="/img/rabbit.jpeg" alt="..." />
         <span class="h4 text-muted">Rabbit Moon</span>
-        <button class="btn btn-outline-secondary" >1:1 대화</button>
+<!--        <button class="btn btn-outline-secondary" >1:1 대화</button>-->
       </span>
             <div class="card mb-4">
-                <div class="card-header h5">
+                <div class="card-header h5" >
                     IOS 개발자 스터디
                 </div>
                 <div class="card-body">
