@@ -56,7 +56,7 @@ public class RecruitAdapter {
 
         ResponseEntity<Page<RecruitCardResponse>> responseEntity = restTemplate.exchange(
                 uri,
-                HttpMethod.GET,
+                HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Page<RecruitCardResponse>>() {}
         );
@@ -121,7 +121,7 @@ public class RecruitAdapter {
         Map<String, Object> params = new HashMap<>();
         URI uri = getUri(params, RECRUIT_URI + "/" + recruitSeq);
 
-        ResponseEntity<Boolean> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, Boolean.class);
+        ResponseEntity<Boolean> responseEntity = restTemplate.exchange(uri, HttpMethod.POST, requestEntity, Boolean.class);
 
         if(responseEntity.getStatusCode() != HttpStatus.OK) {
             log.error("Error from getting isGroupleader. status:{}, recruitSeq:{}", responseEntity.getStatusCode(), recruitSeq);

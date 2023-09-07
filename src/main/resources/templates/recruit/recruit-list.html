@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -33,17 +33,14 @@
     </header>
     <div class="container row-cols-xl-4 mt-5">
         <select class="form-select-lg">
-            <option value="프로젝트">프로젝트</option>
-            <option value="공모전">공모전</option>
-            <option value="스터디">스터디</option>
+            <option th:each="type : ${recruitTagList.types}" th:value="${type.typeSeq}" th:text="${type.name}">
+            </option>
         </select>
         <select class="form-select-lg">
-            <option value="기획">기획</option>
-            <option value="디자인">디자인</option>
+            <option value="positions" th:each="position : ${recruitTagList.positions}" th:value="${position.positionSeq}"  th:text="${position.name}"></option>
         </select>
         <select class="form-select-lg">
-            <option value="분야1">분야1</option>
-            <option value="분야2">분야2</option>
+            <option value="fields" th:each="field : ${recruitTagList.fields}" th:value="${field.fieldSeq}" th:text="${field.name}"></option>
         </select>
     </div>
     <div class="container px-4 px-lg-4 mt-5">
@@ -53,7 +50,7 @@
                     <!-- Product image-->
                     <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
                     <!-- Product details-->
-                    <div class=" p-3 pt-3 border-top-0">
+                    <div class=" p-3 pt-3 border-top-0" >
                         <!-- Project category-->
                         소셜 네트워크
                     </div>

@@ -43,7 +43,7 @@ public class RegisterController {
      * @param model 모델 객체
      * @return 성공 시 로그인 템플릿, 실패 시 회원 가입 템플릿
      */
-    @PostMapping
+    @PostMapping("/signup")
     public String signup(@Valid MemberSignUpRequest request, Model model, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             model.addAttribute("member", request);
@@ -61,7 +61,7 @@ public class RegisterController {
 
         memberService.signUp(request);
 
-        return "login";
+        return "signup-second";
     }
 
 }
