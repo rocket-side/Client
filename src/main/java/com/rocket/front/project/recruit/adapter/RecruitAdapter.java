@@ -1,5 +1,6 @@
 package com.rocket.front.project.recruit.adapter;
 
+import com.rocket.front.project.introduction.domain.response.PageDto;
 import com.rocket.front.project.recruit.domain.request.AccessUserRequest;
 import com.rocket.front.project.recruit.domain.response.RecruitCardResponse;
 import com.rocket.front.project.recruit.domain.response.RecruitResponse;
@@ -42,7 +43,7 @@ public class RecruitAdapter {
      * @return 카드 형식의 공고 목록 응답
      * @throws RuntimeException 요청 실패 시 발생
      */
-    public Page<RecruitCardResponse> getRecruitsList(Pageable pageable, Long type, String position, Long field, @Valid AccessUserRequest request) {
+    public PageDto<RecruitCardResponse> getRecruitsList(Pageable pageable, Long type, String position, Long field, @Valid AccessUserRequest request) {
         HttpEntity<AccessUserRequest> requestEntity = new HttpEntity<>(request, getHttpHeader());
 
         Map<String, Object> params = new HashMap<>();
@@ -54,11 +55,12 @@ public class RecruitAdapter {
 
         log.info(":::::recruit-list check   {}:::::",uri.toString());
 
-        ResponseEntity<Page<RecruitCardResponse>> responseEntity = restTemplate.exchange(
+        ResponseEntity<PageDto<RecruitCardResponse>> responseEntity = restTemplate.exchange (
                 uri,
                 HttpMethod.POST,
                 requestEntity,
-                new ParameterizedTypeReference<Page<RecruitCardResponse>>() {}
+//                null,
+                new ParameterizedTypeReference<PageDto<RecruitCardResponse>>() {}
         );
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {

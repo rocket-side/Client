@@ -1,5 +1,6 @@
 package com.rocket.front.project.recruit.controller;
 
+import com.rocket.front.project.introduction.domain.response.PageDto;
 import com.rocket.front.project.recruit.domain.request.AccessUserRequest;
 import com.rocket.front.project.recruit.domain.response.RecruitCardResponse;
 import com.rocket.front.project.recruit.domain.response.RecruitResponse;
@@ -62,7 +63,7 @@ public class RecruitController {
                 throw new ValidationException("유효성 검사에 실패하였습니다.");
             }
 
-            Page<RecruitCardResponse> recruitList = recruitService.getRecruitsList(pageable, type, position, field, request);
+            PageDto<RecruitCardResponse> recruitList = recruitService.getRecruitsList(pageable, type, position, field, request);
             RecruitTagResponse recruitTagList = recruitService.getRecruitTagList();
 
             model.addAttribute("recruitList", recruitList);
@@ -92,6 +93,8 @@ public class RecruitController {
         try {
             RecruitResponse recruitInfo = recruitService.getRecruit(recruitSeq);
             model.addAttribute("recruitInfo", recruitInfo);
+
+
 
             return "recruit/recruit-read";
 

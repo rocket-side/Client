@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Blog Home </title>
+  <title>로켓 | 공고 </title>
   <!-- Favicon-->
 <!--  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />-->
   <!-- Font Awesome icons (free version)-->
@@ -30,9 +30,9 @@
   <header class="py-5 bg-light border-bottom mb-4">
     <div class="container">
       <div class="text-center my-5">
-        <h1 class="fw-bolder">IOS 개발자 스터디</h1>
-        <p class="lead mb-3">다양한 플랫폼 서비스를 만들 수 있는 프로젝트팀</p>
-        <button class="btn btn-outline-success">모집중</button>
+        <h1 class="fw-bolder" th:text="${recruitInfo.name}"></h1>
+        <p class="lead mb-3" th:text="${recruitInfo.info}"></p>
+        <button class="btn btn-outline-success" th:text="${recruitInfo.status}"></button>
       </div>
     </div>
   </header>
@@ -50,12 +50,31 @@
         </div>
         <div class="border p-lg-3 rounded example-element mw-100 mb-4">
           <div class="card-body">
-            <h2 class="h1">소개</h2>
-            <div class="small text-muted rightContainer">January 1, 2023</div>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-            <a href="#!"><img class="card-img-top" src="https://velog.velcdn.com/images/pexe99/post/d160af60-0551-46b8-8bf1-2f6b93ad215d/image.png" alt="..." /></a>
-            <h2 class="h1 p-1">기술/언어</h2>
+            <h2 class="h1">공고</h2>
+            <div class="small text-muted rightContainer" th:text="${recruitInfo.createdAt}"></div>
+            <p class="card-text" style="min-height: 350px" th:text="${recruitInfo.content}"></p>
+<!--            <a href="#!"><img class="card-img-top" src="https://velog.velcdn.com/images/pexe99/post/d160af60-0551-46b8-8bf1-2f6b93ad215d/image.png" alt="..." /></a>-->
+<!--            <h2 class="h1 p-1">기술/언어</h2>-->
             <ul class="list-inline dev-icons">
+              <li class="list-inline-item" th:each="skill : ${recruitInfo.skills}">
+                <i th:switch="${skill.name}">
+                  <i th:case="html5" class="fab fa-html5"></i>
+                  <i th:case="css3" class="fab fa-css3-alt"></i>
+                  <i th:case="js" class="fab fa-js-square"></i>
+                  <i th:case="angular" class="fab fa-angular"></i>
+                  <i th:case="react" class="fab fa-react"></i>
+                  <i th:case="nodejs" class="fab fa-node-js"></i>
+                  <i th:case="sass" class="fab fa-sass"></i>
+                  <i th:case="less" class="fab fa-less"></i>
+                  <i th:case="wordpress" class="fab fa-wordpress"></i>
+                  <i th:case="gulp" class="fab fa-gulp"></i>
+                  <i th:case="grunt" class="fab fa-grunt"></i>
+                  <i th:case="npm" class="fab fa-npm"></i>
+                  <i th:case="swift" class="fab fa-swift"></i>
+                  <i th:case="IOS" class="fab fa-app-store-ios"></i>
+                  <span th:case="*" th:text="${skill.name}"></span>
+                </i>
+              </li>
               <li class="list-inline-item"><i class="fab fa-html5"></i></li>
               <li class="list-inline-item"><i class="fab fa-css3-alt"></i></li>
               <li class="list-inline-item"><i class="fab fa-js-square"></i></li>
@@ -69,7 +88,6 @@
               <li class="list-inline-item"><i class="fab fa-grunt"></i></li>
               <li class="list-inline-item"><i class="fab fa-npm"></i></li>
             </ul>
-            <a class="btn btn-success" href="#!">진행 사항 보러가기 →</a>
           </div>
         </div>
       </div>
@@ -79,19 +97,17 @@
         <span class="d-none d-lg-block">
           <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="/img/rabbit.jpeg" alt="..." />
           <span class="h4 text-muted">Rabbit Moon</span>
-          <button class="btn btn-outline-secondary" >1:1 대화</button>
         </span>
         <div class="card mb-4">
           <div class="card-header ">
-            <span class="h5">IOS 개발자 스터디</span>
-            <span class="float-end">♥︎ 5</span>
+            <span class="h5" th:text="${recruitInfo.name}"></span>
+            <span class="float-end">♥︎ <span th:text="${recruitInfo.keepCount}"></span></span>
           </div>
           <div class="card-body">
-              <p class="">#스터디</p>
-            <p class="">앱개발 분야</p>
-            <p>기간 : 23.05.28 ~23.06.19  (23일)</p>
-            <p>조회수 : 00</p>
-            <p>실시간 지원 현황 : 00</p>
+            <p>#<span th:text="${recruitInfo.projectType.name}"></span></p>
+            <p th:text="${recruitInfo.projectField.name}"> 분야</p>
+            <p>기간 : <span th:text="${recruitInfo.startDate}"></span> ~ <span th:text="${recruitInfo.endDate}"></span></p>
+            <p>실시간 지원 현황 : 00명</p>
           </div>
         </div>
         <!-- Categories widget-->
@@ -131,7 +147,7 @@
         <div class="col-lg-4">
           <!-- Blog post-->
           <div class="card mb-4">
-            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+            <a href="#!"><img class="card-img-top" src="/img/card-default.png" alt="..." /></a>
             <div class="card-body">
               <div class="small text-muted">January 1, 2023</div>
               <h2 class="card-title h4">Post Title</h2>
@@ -142,7 +158,7 @@
         <div class="col-lg-4">
           <!-- Blog post-->
           <div class="card mb-4">
-            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+            <a href="#!"><img class="card-img-top" src="/img/card-default.png" alt="..." /></a>
             <div class="card-body">
               <div class="small text-muted">January 1, 2023</div>
               <h2 class="card-title h4">Post Title</h2>
@@ -153,7 +169,7 @@
         <div class="col-lg-4">
           <!-- Blog post-->
           <div class="card mb-4">
-            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+            <a href="#!"><img class="card-img-top" src="/img/card-default.png" alt="..." /></a>
             <div class="card-body">
               <div class="small text-muted">January 1, 2023</div>
               <h2 class="card-title h4">Post Title</h2>

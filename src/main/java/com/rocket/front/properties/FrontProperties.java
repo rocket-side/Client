@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "front")
 public class FrontProperties {
 
-    private String host = "localhost";
+    private String host = "13.209.185.140";
 
     private Integer port = 8080;
 }
