@@ -6,6 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class TypeResponse {
+
     private Long typeSeq;
-    private  String name;
+
+    private String name;
 }

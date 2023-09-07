@@ -4,6 +4,7 @@ import com.rocket.front.project.recruit.domain.request.AccessUserRequest;
 import com.rocket.front.project.recruit.domain.response.RecruitCardResponse;
 import com.rocket.front.project.recruit.domain.response.RecruitResponse;
 import com.rocket.front.project.recruit.domain.response.RecruitTagResponse;
+import com.rocket.front.project.recruit.domain.response.TypeResponse;
 import com.rocket.front.project.recruit.exception.RecruitNotFoundException;
 import com.rocket.front.project.recruit.service.RecruitService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import javax.validation.ValidationException;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -42,10 +48,10 @@ public class RecruitController {
      * @return 성공 시 공고글 목록 템플릿, 실패 시 에러 템플릿
      */
     @GetMapping
-    public String getRecruitList(Model model, @PageableDefault ()Pageable pageable, Long type, String position, Long field, @Valid AccessUserRequest request, BindingResult bindingResult) {
+    public String getRecruitList(Model model, @PageableDefault ()Pageable pageable, Long type, String position, Long field, AccessUserRequest request, BindingResult bindingResult) {
 
         try {
-            if (bindingResult.hasErrors()) {
+                if (bindingResult.hasErrors()) {
                 model.addAttribute("access-user", request);
 
                 Map<String, String> validatorError = recruitService.validateHandling(bindingResult);
