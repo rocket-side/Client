@@ -6,12 +6,14 @@ import com.rocket.front.project.introduction.domain.request.AccessUserRequest;
 import com.rocket.front.project.introduction.domain.response.CommentResponse;
 import com.rocket.front.project.introduction.domain.response.IntroductionForCardResponse;
 import com.rocket.front.project.introduction.domain.response.IntroductionResponse;
+import com.rocket.front.project.introduction.domain.response.PageDto;
 import com.rocket.front.project.recruit.domain.response.RecruitCardResponse;
 import com.rocket.front.properties.ProjectProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -44,7 +46,7 @@ public class IntroductionAdapter {
      * @return 카드 형식의 공고 목록 응답
      * @throws RuntimeException 요청 실패 시 발생
      */
-    public Page<IntroductionForCardResponse> getIntroductionList(Pageable pageable, Long type, Long field, String memberSeq) {
+    public PageDto<IntroductionForCardResponse> getIntroductionList(Pageable pageable, Long type, Long field, String memberSeq) {
         Map<String, Object> params = new HashMap<>();
         params.put("page", pageable.getPageNumber());
 //        params.put("type", type);
@@ -60,11 +62,11 @@ public class IntroductionAdapter {
         }
 
         try{
-            ResponseEntity<Page<IntroductionForCardResponse>> responseEntity = restTemplate.exchange(
+            ResponseEntity<PageDto<IntroductionForCardResponse>> responseEntity = restTemplate.exchange(
                     uri,
-                    HttpMethod.GET,
+                    HttpMethod.POST,
                     requestEntity,
-                    new ParameterizedTypeReference<>() {}
+                    new ParameterizedTypeReference<PageDto<IntroductionForCardResponse>>() {}
             );
 
             if (responseEntity.getStatusCode() != HttpStatus.OK) {
@@ -78,11 +80,14 @@ public class IntroductionAdapter {
 
 //        ResponseEntity<Page<IntroductionForCardResponse>> responseEntity = restTemplate.exchange(
 //                uri,
-//                HttpMethod.GET,
+//                HttpMethod.POST,
 //                requestEntity,
 //                new ParameterizedTypeReference<>() {}
 //        );
-
+//
+//        if (responseEntity.getStatusCode() != HttpStatus.OK) {
+//            throw new RuntimeException("Error from getting Recruit List. " + responseEntity.getStatusCode() + ", " + pageable.getPageNumber() + ", " + type + ", " + field);
+//        }
 
         return null;
     }
@@ -149,7 +154,7 @@ public class IntroductionAdapter {
 
         ResponseEntity<Boolean> responseEntity = restTemplate.exchange(
                 uri,
-                HttpMethod.GET,
+                HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<>() {}
         );

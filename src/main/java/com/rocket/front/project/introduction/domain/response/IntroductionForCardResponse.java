@@ -14,4 +14,6 @@ public class IntroductionForCardResponse {
     private FieldResponse field;
     private String info;
     private String status;
+
+
 }
