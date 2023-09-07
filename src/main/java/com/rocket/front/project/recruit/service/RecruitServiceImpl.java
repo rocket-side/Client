@@ -1,5 +1,6 @@
 package com.rocket.front.project.recruit.service;
 
+import com.rocket.front.project.introduction.domain.response.PageDto;
 import com.rocket.front.project.recruit.adapter.RecruitAdapter;
 import com.rocket.front.project.recruit.domain.request.AccessUserRequest;
 import com.rocket.front.project.recruit.domain.response.RecruitCardResponse;
@@ -40,7 +41,7 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
     @Override
-    public Page<RecruitCardResponse> getRecruitsList(Pageable pageable, Long type, String position, Long field, AccessUserRequest request) {
+    public PageDto<RecruitCardResponse> getRecruitsList(Pageable pageable, Long type, String position, Long field, AccessUserRequest request) {
         return recruitAdapter.getRecruitsList(pageable, type, position, field, request);
     }
 
