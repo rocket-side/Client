@@ -16,7 +16,8 @@ public class CommunityController {
      */
     @GetMapping("/{post-seq}")
     public String getCommunity(@PathVariable("post-seq") Long seq, @PageableDefault Long page) {
-        return "community/community-read";
+        return "error";
+//        return "community/community-read";
     }
 
     /**
@@ -25,7 +26,8 @@ public class CommunityController {
      */
     @PostMapping("/register")
     public String getCommunityRegisterForm() {
-        return "community/community-write";
+        return "error";
+//        return "community/community-write";
     }
 
     /**
@@ -37,6 +39,7 @@ public class CommunityController {
      */
     @GetMapping
     public String getCommunityList(@PageableDefault Long page, Long category) {
-        return "community/community-list";
+        return "error";
+//        return "community/community-list";
     }
 }

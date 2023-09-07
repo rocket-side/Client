@@ -50,7 +50,7 @@
                 <div class="card-body">
 <!--                    <div class="small text-muted rightContainer" th:text="${introduction.createdAt}"></div>-->
                     <h2 class="h1">소개</h2>
-                    <p class="card-text" th:text="${introduction.content}"></p>
+                    <p class="card-text" th:text="${introduction.content}" style="min-height: 200px"></p>
 <!--                    <a href="#!"><img class="card-img-top" src="https://velog.velcdn.com/images/pexe99/post/d160af60-0551-46b8-8bf1-2f6b93ad215d/image.png" alt="..." /></a>-->
 <!--                    <h2 class="h1 p-1" >기술/언어</h2>-->
                     <ul class="list-inline dev-icons" >
@@ -129,17 +129,21 @@
             <div class="card bg-light">
                 <div class="card-body" >
                     <!-- Comment form-->
-                    <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                    <form class="mb-4 d-flex" action="/comment/register" method="post" >
+                        <textarea class="form-control me-2" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+                        <button type="button" class="btn btn-dark" style="min-width: 60px">등록</button>
+                    </form>
+
                     <!-- Comment with nested comments-->
                     <div class="d-flex mb-4" th:each="comment : ${comments}">
                         <!-- Parent comment-->
-                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                        <div class="flex-shrink-0" ><img class="rounded-circle " src="/img/user-default2.png" style="width: 50px; height: 50px" alt="..." /></div>
                         <div class="ms-3">
                             <div class="fw-bold" th:text="${comment.memberSeq}"></div>
                             <p th:text="${comment.content}"></p>
                             <!-- Child comment 1-->
                             <div class="d-flex mt-4" th:each="childComment : ${comment.replyList}">
-                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                <div class="flex-shrink-0"><img class="rounded-circle" src="/img/user-default2.png" style="width: 50px; height: 50px" alt="..." /></div>
                                 <div class="ms-3">
                                     <div class="fw-bold" th:text="${childComment.memberSeq}"></div>
                                     <p th:text="${childComment.content}"></p>

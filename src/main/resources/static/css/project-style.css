@@ -4215,7 +4215,7 @@ textarea.form-control-lg {
 }
 
 .card-body {
-  flex: 1 1 auto;
+  /*flex: 1 1 auto;*/
   padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
   color: var(--bs-card-color);
 }
@@ -7304,6 +7304,10 @@ textarea.form-control-lg {
 
 .h-25 {
   height: 25% !important;
+}
+
+.h-30 {
+  height: 30% !important;
 }
 
 .h-50 {
