@@ -118,7 +118,7 @@ GET http://localhost:8989/project/api/introduces/isredirect/1
 Content-Type: application/json
 
 {
-  "memberSeq" : 1
+  "memberSeq" : 3
 }
 
 ### 해당 소개글 관리에 접근하는 유저가 소개글 생성자 인지 확인

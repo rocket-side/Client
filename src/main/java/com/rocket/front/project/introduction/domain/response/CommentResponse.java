@@ -15,8 +15,8 @@ public class CommentResponse {
     private Long memberSeq;
     private Long recruitSeq;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate createAt;
-//    private LocalDateTime createAt;
+//    private LocalDate createAt;
+    private LocalDateTime createAt;
 
     private String content;
     private List<CommentResponse> replyList;

@@ -31,12 +31,10 @@
     </header>
     <div class="container row-cols-xl-4 mt-5">
         <select class="form-select-lg">
-            <option value="분야1">분야1</option>
-            <option value="분야2">분야2</option>
+            <option value="positions" th:each="type : ${tagList.types}" th:value="${type.typeSeq}" th:text="${type.name}"></option>
         </select>
         <select class="form-select-lg">
-            <option value="분야3">분야3</option>
-            <option value="분야4">분야4</option>
+            <option value="fields" th:each="field : ${tagList.fields}" th:value="${field.fieldSeq}" th:text="${field.name}"></option>
         </select>
 <!--        <label>-->
 <!--            <span><input type="checkbox"> 진행 중</span>-->
@@ -44,8 +42,8 @@
     </div>
     <div class="container px-4 px-lg-4 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div class="col mb-5" th:each="introductionCard : ${introductionCards.content}">
-                <div class="card h-100">
+            <div class="col mb-5" th:each="introductionCard : ${introductionCards.contents}" >
+                <a class="card h-100 text-decoration-none text-black" th:href="@{/introductions/{param}(param=${introductionCard.recruitSeq})}">
                     <!-- Sale badge-->
                     <div th:if="${introductionCard.status == '모집중'}"
                          class="badge bg-dark text-white position-absolute"
@@ -54,7 +52,7 @@
                          class="badge bg-dark text-white position-absolute"
                          style="top: 0.5rem; right: 0.5rem">진행 중</div>
                     <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                    <img class="card-img-top" src="/img/card-default.png" alt="..." />
                     <!-- Product details-->
                     <div class=" p-3 pt-3 border-top-0" th:text="${introductionCard.field.name}">
                         <!-- Project category-->
@@ -68,10 +66,24 @@
                     <!-- Product actions-->
                     <div class="p-3 pt-3 border-top-0 " th:text="${introductionCard.info}">
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
+    <div th:if="${introductionCards.totalPages > 1}" class="pagination">
+        <ul>
+            <li th:if="${introductionCards.hasPrevious()}" class="page-item">
+                <a th:href="@{'/introductions?page=' + ${introductionCards.number - 1}}" class="page-link">이전</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(0, introductionCards.totalPages - 1)}" class="page-item">
+                <a th:href="@{'/introductions?page=' + ${i}}" th:text="${i + 1}" class="page-link"></a>
+            </li>
+            <li th:if="${introductionCards.hasNext()}" class="page-item">
+                <a th:href="@{'/introductions?page=' + ${introductionCards.number + 1}}" class="page-link">다음</a>
+            </li>
+        </ul>
+    </div>
+
 </section>
 <!-- Footer-->
 <footer class="py-5 bg-dark">

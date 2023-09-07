@@ -6,6 +6,7 @@ import com.rocket.front.project.introduction.adapter.IntroductionAdapter;
 import com.rocket.front.project.introduction.domain.response.CommentResponse;
 import com.rocket.front.project.introduction.domain.response.IntroductionForCardResponse;
 import com.rocket.front.project.introduction.domain.response.IntroductionResponse;
+import com.rocket.front.project.introduction.domain.response.PageDto;
 import com.rocket.front.project.recruit.domain.response.RecruitTagResponse;
 import com.rocket.front.project.recruit.service.RecruitService;
 import lombok.RequiredArgsConstructor;
@@ -36,17 +37,15 @@ public class IntroductionController {
      */
     @GetMapping("/{recruit-seq}")
     public String getIntroduction(@PathVariable("recruit-seq") String recruitSeq, HttpSession httpSession, Model model) {
-        String memberSeq = null;
-        if(Objects.nonNull(httpSession.getAttribute("memberSeq"))){
-            memberSeq = httpSession.getAttribute("memberSeq").toString();
-        }
 
         try {
             IntroductionResponse introduction = introductionAdapter.getIntroduction(recruitSeq);
             List<CommentResponse> comments = introductionAdapter.getIntroductionComments(recruitSeq);
 
-//        Boolean accessUser = introductionAdapter.isIntroductionWriter(recruitSeq,memberSeq);
-            boolean accessUser = false;
+            boolean accessUser=false;
+            if(Objects.nonNull(httpSession.getAttribute("memberSeq"))){
+                accessUser = introductionAdapter.isIntroductionWriter(recruitSeq,httpSession.getAttribute("memberSeq").toString());
+            }
             model.addAttribute("introduction",introduction);
             model.addAttribute("comments",comments);
             model.addAttribute("isWriter",accessUser);
@@ -84,7 +83,7 @@ public class IntroductionController {
 
         try{
             RecruitTagResponse tagList = recruitService.getRecruitTagList();
-            Page<IntroductionForCardResponse> introductions = introductionAdapter.getIntroductionList(pageable, type, field, memberSeq);
+            PageDto<IntroductionForCardResponse> introductions = introductionAdapter.getIntroductionList(pageable, type, field, memberSeq);
             model.addAttribute("tagList",tagList);
             model.addAttribute("introductionCards",introductions);
         }catch (Exception exception) {

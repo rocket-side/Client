@@ -14,9 +14,10 @@ import java.util.List;
 public class IntroductionResponse {
     private RecruitResponse recruit;
     private Integer likeCount;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate createdAt;
-//    private LocalDateTime createdAt;
+//    @JsonFormat(pattern = "yyyy-MM-dd")
+//    private LocalDate createdAt;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime createdAt;
     private String content;
 
     private List<RecruitCrewResponse> recruitCrews;
