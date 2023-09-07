@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>로켓 | 공고 </title>
+  <!-- Favicon-->
+<!--  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />-->
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+
+  <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="/css/project-style.css" rel="stylesheet" />
+  <link href="/css/side-bar-style.css" rel="stylesheet" />
+</head>
+<body>
+<!-- Side Bar -->
+<th:block th:include="fragments/sidebar" />
+<!-- Section-->
+<section class="home-section bg-white">
+  <!-- Navigation-->
+  <th:block th:include="fragments/navigation" />
+  <!-- Page header with logo and tagline-->
+  <header class="py-5 bg-light border-bottom mb-4">
+    <div class="container">
+      <div class="text-center my-5">
+        <h1 class="fw-bolder" th:text="${recruitInfo.name}"></h1>
+        <p class="lead mb-3" th:text="${recruitInfo.info}"></p>
+        <button class="btn btn-outline-success" th:text="${recruitInfo.status}"></button>
+      </div>
+    </div>
+  </header>
+  <!-- Page content-->
+  <div class="container">
+    <div class="row">
+      <!-- Blog entries-->
+      <div class="col-lg-8">
+        <!-- Featured blog post-->
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <a type="button" class="btn btn-outline-secondary" href="recruit-read.html">공고글</a>
+          <a type="button" class="btn btn-secondary" href="recruit-applicant.html">지원자</a>
+          <a type="button" class="btn btn-secondary" href="project-member.html">팀원</a>
+          <a type="button" class="btn btn-secondary" href="recruit-update.html">수정</a>
+        </div>
+        <div class="border p-lg-3 rounded example-element mw-100 mb-4">
+          <div class="card-body">
+            <h2 class="h1">공고</h2>
+            <div class="small text-muted rightContainer" th:text="${recruitInfo.createdAt}"></div>
+            <p class="card-text" style="min-height: 350px" th:text="${recruitInfo.content}"></p>
+<!--            <a href="#!"><img class="card-img-top" src="https://velog.velcdn.com/images/pexe99/post/d160af60-0551-46b8-8bf1-2f6b93ad215d/image.png" alt="..." /></a>-->
+<!--            <h2 class="h1 p-1">기술/언어</h2>-->
+            <ul class="list-inline dev-icons">
+              <li class="list-inline-item" th:each="skill : ${recruitInfo.skills}">
+                <i th:switch="${skill.name}">
+                  <i th:case="html5" class="fab fa-html5"></i>
+                  <i th:case="css3" class="fab fa-css3-alt"></i>
+                  <i th:case="js" class="fab fa-js-square"></i>
+                  <i th:case="angular" class="fab fa-angular"></i>
+                  <i th:case="react" class="fab fa-react"></i>
+                  <i th:case="nodejs" class="fab fa-node-js"></i>
+                  <i th:case="sass" class="fab fa-sass"></i>
+                  <i th:case="less" class="fab fa-less"></i>
+                  <i th:case="wordpress" class="fab fa-wordpress"></i>
+                  <i th:case="gulp" class="fab fa-gulp"></i>
+                  <i th:case="grunt" class="fab fa-grunt"></i>
+                  <i th:case="npm" class="fab fa-npm"></i>
+                  <i th:case="swift" class="fab fa-swift"></i>
+                  <i th:case="IOS" class="fab fa-app-store-ios"></i>
+                  <span th:case="*" th:text="${skill.name}"></span>
+                </i>
+              </li>
+              <li class="list-inline-item"><i class="fab fa-html5"></i></li>
+              <li class="list-inline-item"><i class="fab fa-css3-alt"></i></li>
+              <li class="list-inline-item"><i class="fab fa-js-square"></i></li>
+              <li class="list-inline-item"><i class="fab fa-angular"></i></li>
+              <li class="list-inline-item"><i class="fab fa-react"></i></li>
+              <li class="list-inline-item"><i class="fab fa-node-js"></i></li>
+              <li class="list-inline-item"><i class="fab fa-sass"></i></li>
+              <li class="list-inline-item"><i class="fab fa-less"></i></li>
+              <li class="list-inline-item"><i class="fab fa-wordpress"></i></li>
+              <li class="list-inline-item"><i class="fab fa-gulp"></i></li>
+              <li class="list-inline-item"><i class="fab fa-grunt"></i></li>
+              <li class="list-inline-item"><i class="fab fa-npm"></i></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Side widgets-->
+      <div class="col-lg-4">
+        <!-- Search widget-->
+        <span class="d-none d-lg-block">
+          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="/img/rabbit.jpeg" alt="..." />
+          <span class="h4 text-muted">Rabbit Moon</span>
+        </span>
+        <div class="card mb-4">
+          <div class="card-header ">
+            <span class="h5" th:text="${recruitInfo.name}"></span>
+            <span class="float-end">♥︎ <span th:text="${recruitInfo.keepCount}"></span></span>
+          </div>
+          <div class="card-body">
+            <p>#<span th:text="${recruitInfo.projectType.name}"></span></p>
+            <p th:text="${recruitInfo.projectField.name}"> 분야</p>
+            <p>기간 : <span th:text="${recruitInfo.startDate}"></span> ~ <span th:text="${recruitInfo.endDate}"></span></p>
+            <p>실시간 지원 현황 : 00명</p>
+          </div>
+        </div>
+        <!-- Categories widget-->
+        <div class="card mb-4">
+          <div class="card-header h5">모집현황</div>
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col">
+                <ul class="list-unstyled p-2">
+                  <li><a>IOS</a></li>
+                  <li><a>안드로이드</a></li>
+                  <li><a>웹서버</a></li>
+                </ul>
+              </div>
+              <div class="col-lg-4">
+                <ul class="list-unstyled p-2">
+                  <li><a>1/1</a></li>
+                  <li><a class="text-danger">1/2</a></li>
+                  <li><a>1/1</a></li>
+                </ul>
+              </div>
+              <div class="col-lg-4">
+                <ul class="list-unstyled p-2">
+                  <li><a href="#!" class="btn btn-dark btn-sm">완료</a></li>
+                  <li><a href="#!" class=" btn btn-danger btn-sm">지원</a></li>
+                  <li><a href="#!"class="btn btn-dark btn-sm">완료</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nested row for non-featured blog posts-->
+      <div class="row">
+        <p class="h2 mb-4">함께 보면 좋은 모임👨‍👧‍👧</p>
+        <div class="col-lg-4">
+          <!-- Blog post-->
+          <div class="card mb-4">
+            <a href="#!"><img class="card-img-top" src="/img/card-default.png" alt="..." /></a>
+            <div class="card-body">
+              <div class="small text-muted">January 1, 2023</div>
+              <h2 class="card-title h4">Post Title</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <!-- Blog post-->
+          <div class="card mb-4">
+            <a href="#!"><img class="card-img-top" src="/img/card-default.png" alt="..." /></a>
+            <div class="card-body">
+              <div class="small text-muted">January 1, 2023</div>
+              <h2 class="card-title h4">Post Title</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <!-- Blog post-->
+          <div class="card mb-4">
+            <a href="#!"><img class="card-img-top" src="/img/card-default.png" alt="..." /></a>
+            <div class="card-body">
+              <div class="small text-muted">January 1, 2023</div>
+              <h2 class="card-title h4">Post Title</h2>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+  <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<!-- Core theme JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/side-bar-script.js"></script>
+</body>
+</html>

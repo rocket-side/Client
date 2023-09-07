@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<nav class=" navbar navbar-expand-lg navbar-light bg-white ">
+    <div class="container px-4 px-lg-5">
+        <form class="d-flex ">
+            <input class="form-control mx-sm-1" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-dark my-2 my-sm-0 navbar-brand" type="submit">
+                <i class="bx bx-search"></i>
+            </button>
+        </form>
+
+        <div sec:authorize="isAuthenticated()">
+            <ul class="d-flex align-items-center mb-0">
+<!--                <li class="nav-item dropdown">-->
+<!--                    <a class="nav-link d-flex align-items-center " href="#" data-bs-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false">-->
+<!--                        <i class="bx bxs-bell"></i>-->
+<!--                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">-->
+<!--                                99+-->
+<!--                                <span class="visually-hidden">unread messages</span>-->
+<!--                          </span>-->
+<!--                    </a>-->
+<!--                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                        <li><a class="dropdown-item" href="#!">알림1</a></li>-->
+<!--                        <li><hr class="dropdown-divider" /></li>-->
+<!--                        <li><a class="dropdown-item" href="#!">알림2</a></li>-->
+<!--                        <li><hr class="dropdown-divider" /></li>-->
+<!--                        <li><a class="dropdown-item" href="#!">알림2</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                        <span class="account-user-avatar" th:text="${session.name}">
+                            <i class='bx bx-chevron-down'></i>
+                        </span>
+<!--                        <span class="account-user-avatar">-->
+<!--                            <img src="/img/mang9.jpg" alt="user-image" width="35" class="rounded-circle">-->
+<!--                        </span>-->
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/profile/{param}(param=${session.memberSeq})}">마이페이지</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="btn btn-outline-dark ml-2 rounded-5 bg-dark text-white px-3" href="/recruits/register">
+                        공고 모집
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div sec:authorize="!isAuthenticated()">
+            <a href="/login" class="btn btn-outline-dark ml-2 rounded-5 bg-dark text-white px-3">Login</a>
+            <a href="/signup" class="btn btn-outline-dark ml-2 rounded-5 px-3 ml">Signup</a>
+        </div>
+
+    </div>
+</nav>
+</html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="ko" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Your Web App</title>-->
+<!--    &lt;!&ndash; Bootstrap CSS link (you need to include Bootstrap CSS) &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+<!--</head>-->
+<!--        <nav class="navbar navbar-expand-lg navbar-light bg-white">-->
+<!--    <div class="container">-->
+<!--        <form class="d-flex mx-auto">-->
+<!--            <input class="form-control" type="search" placeholder="Search" aria-label="Search">-->
+<!--            <button class="btn btn-outline-dark ml-2" type="submit">-->
+<!--                <i class="bx bx-search"></i>-->
+<!--            </button>-->
+<!--        </form>-->
+
+<!--        <ul class="navbar-nav ml-auto">-->
+<!--            <li class="nav-item dropdown">-->
+<!--                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">-->
+<!--                    <span class="mr-2" th:text="${#authentication.name}">User</span>-->
+<!--                    <i class="bx bx-chevron-down"></i>-->
+<!--                </a>-->
+<!--                <div class="dropdown-menu dropdown-menu-right">-->
+<!--                    <a class="dropdown-item" href="#">마이페이지</a>-->
+<!--                    <div class="dropdown-divider"></div>-->
+<!--                    <a class="dropdown-item" href="/logout">로그아웃</a>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link fw-bold" href="#">-->
+<!--                    공고 모집-->
+<!--                </a>-->
+<!--            </li>-->
+<!--        </ul>-->
+
+<!--        <div sec:authorize="!isAuthenticated()">-->
+<!--            <a href="/login" class="btn btn-outline-dark ml-2">Login</a>-->
+<!--            <a href="/signup" class="btn btn-outline-dark ml-2">Signup</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<!--&lt;!&ndash; Bootstrap JS script (you need to include Bootstrap JS) &ndash;&gt;-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+<!--</html>-->

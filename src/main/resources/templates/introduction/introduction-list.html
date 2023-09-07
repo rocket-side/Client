@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>로켓 | 프로젝트</title>
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/project-style.css" rel="stylesheet" />
+    <link href="/css/side-bar-style.css" rel="stylesheet" />
+</head>
+<body>
+<!-- Side Bar -->
+<th:block th:include="fragments/sidebar" />
+<!-- Section-->
+<section class="home-section bg-white">
+    <!-- Navigation-->
+    <th:block th:include="fragments/navigation" />
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">프로젝트 소개</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Introducing my project</p>
+            </div>
+        </div>
+    </header>
+    <div class="container row-cols-xl-4 mt-5">
+        <select class="form-select-lg">
+            <option value="positions" th:each="type : ${tagList.types}" th:value="${type.typeSeq}" th:text="${type.name}"></option>
+        </select>
+        <select class="form-select-lg">
+            <option value="fields" th:each="field : ${tagList.fields}" th:value="${field.fieldSeq}" th:text="${field.name}"></option>
+        </select>
+<!--        <label>-->
+<!--            <span><input type="checkbox"> 진행 중</span>-->
+<!--        </label>-->
+    </div>
+    <div class="container px-4 px-lg-4 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="col mb-5" th:each="introductionCard : ${introductionCards.contents}" >
+                <a class="card h-100 text-decoration-none text-black" th:href="@{/introductions/{param}(param=${introductionCard.recruitSeq})}">
+                    <!-- Sale badge-->
+                    <div th:if="${introductionCard.status == '모집중'}"
+                         class="badge bg-dark text-white position-absolute"
+                         style="top: 0.5rem; right: 0.5rem">모집 중</div>
+                    <div th:if="${introductionCard.status == '진행중'}"
+                         class="badge bg-dark text-white position-absolute"
+                         style="top: 0.5rem; right: 0.5rem">진행 중</div>
+                    <!-- Product image-->
+                    <img class="card-img-top" src="/img/card-default.png" alt="..." />
+                    <!-- Product details-->
+                    <div class=" p-3 pt-3 border-top-0" th:text="${introductionCard.field.name}">
+                        <!-- Project category-->
+                    </div>
+                    <div class="card-body h-30 p-2">
+                        <div class="text-center">
+                            <!-- Project name-->
+                            <h5 class="fw-bolder" th:text="${introductionCard.name}"></h5>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="p-3 pt-3 border-top-0 " th:text="${introductionCard.info}">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div th:if="${introductionCards.totalPages > 1}" class="pagination">
+        <ul>
+            <li th:if="${introductionCards.hasPrevious()}" class="page-item">
+                <a th:href="@{'/introductions?page=' + ${introductionCards.number - 1}}" class="page-link">이전</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(0, introductionCards.totalPages - 1)}" class="page-item">
+                <a th:href="@{'/introductions?page=' + ${i}}" th:text="${i + 1}" class="page-link"></a>
+            </li>
+            <li th:if="${introductionCards.hasNext()}" class="page-item">
+                <a th:href="@{'/introductions?page=' + ${introductionCards.number + 1}}" class="page-link">다음</a>
+            </li>
+        </ul>
+    </div>
+
+</section>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+</body>
+</html>
