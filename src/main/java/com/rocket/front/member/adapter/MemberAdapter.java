@@ -39,7 +39,7 @@ public class MemberAdapter {
         ResponseEntity<Boolean> responseEntity = restTemplate.getForEntity(uri, Boolean.class);
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            log.error("Error from checking existing Member Email. status:{}, param:{}", responseEntity.getStatusCode(), email);
+            log.error("Error from checking existing Member Email. status:{}, email:{}", responseEntity.getStatusCode(), email);
             throw new RuntimeException("Error from checking existing Member Email. " + responseEntity.getStatusCode() + ", " + email);
         }
 
@@ -47,7 +47,7 @@ public class MemberAdapter {
         if (responseEntityBody != null) {
             return responseEntityBody;
         } else {
-            log.error("ResponseEntity body is null: {}, email: {}", uri, email);
+            log.error("ResponseEntity body is null:{}, email:{}", uri, email);
             throw new RuntimeException("ResponseEntity body is null: " + uri + email);
         }
     }
@@ -68,7 +68,7 @@ public class MemberAdapter {
                 });
 
         if (responseEntity.getStatusCode() != HttpStatus.CREATED) {
-            log.error("Error from Sign Up. status: {}", responseEntity.getStatusCode());
+            log.error("Error from Sign Up. status:{}", responseEntity.getStatusCode());
             throw new RuntimeException("Error from Sign Up. " + responseEntity.getStatusCode());
         }
     }
@@ -86,7 +86,7 @@ public class MemberAdapter {
         ResponseEntity<MemberInfoResponse> responseEntity = restTemplate.getForEntity(uri, MemberInfoResponse.class);
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            log.error("Error from getting Member by seq. status:{}, param:{}", responseEntity.getStatusCode(), seq);
+            log.error("Error from getting Member by seq. status:{}, memberSeq:{}", responseEntity.getStatusCode(), seq);
             throw new RuntimeException("Error from getting Member by seq. " + responseEntity.getStatusCode() + ", " + seq);
         }
 
@@ -100,19 +100,13 @@ public class MemberAdapter {
      * @return 조회된 멤버 정보
      * @HTTP method GET
      */
-// TODO feature/login-principal
-//    public MemberLoginInfoResponseDto getMemberInfoByEmail(String email) {
-//        Map<String, Object> params = new HashMap<>();
-//        URI uri = getUri(params, "/member/api"+"/email/"+email);
-
-//        ResponseEntity<MemberLoginInfoResponseDto> responseEntity = restTemplate.getForEntity(uri, MemberLoginInfoResponseDto.class);
     public MemberLoginInfoResponseDto getSignInMemberInfoByEmail(String email) {
         URI uri = getUri("/email/" + email);
 
         ResponseEntity<MemberLoginInfoResponseDto> responseEntity = restTemplate.getForEntity(uri, MemberLoginInfoResponseDto.class);
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            log.error("Error from Sign In. status:{}, param:{}", responseEntity.getStatusCode(), email);
+            log.error("Error from Sign In. status:{}, email:{}", responseEntity.getStatusCode(), email);
             throw new RuntimeException("Error from Sign In. " + responseEntity.getStatusCode() + ", " + email);
         }
 
@@ -138,7 +132,7 @@ public class MemberAdapter {
                 });
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            log.error("Error from updating Member Information. status: {}, param: {}", responseEntity.getStatusCode(), seq);
+            log.error("Error from updating Member Information. status:{}, memberSeq:{}", responseEntity.getStatusCode(), seq);
             throw new RuntimeException("Error from updating Member Information. " + responseEntity.getStatusCode() + ", " + seq);
         }
     }
@@ -156,7 +150,7 @@ public class MemberAdapter {
         });
 
         if (responseEntity.getStatusCode() != HttpStatus.NO_CONTENT) {
-            log.error("Error from deleting Member. status: {}, param: {}", responseEntity.getStatusCode(), seq);
+            log.error("Error from deleting Member. status:{}, memberSeq:{}", responseEntity.getStatusCode(), seq);
             throw new RuntimeException("Error from deleting Member. " + responseEntity.getStatusCode() + ", " + seq);
         }
     }
@@ -174,7 +168,7 @@ public class MemberAdapter {
         ResponseEntity<LevelResponse> responseEntity = restTemplate.getForEntity(uri, LevelResponse.class);
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            log.error("Error from getting Member Level. status:{}, param: {}", responseEntity.getStatusCode(), seq);
+            log.error("Error from getting Member Level. status:{}, memberSeq:{}", responseEntity.getStatusCode(), seq);
             throw new RuntimeException("Error from getting Member Level. " + responseEntity.getStatusCode() + ", " + seq);
         }
 
@@ -195,7 +189,7 @@ public class MemberAdapter {
         });
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            log.error("Error from updating Member Level. status: {}, param: {}, {}", responseEntity.getStatusCode(), memberSeq, levelSeq);
+            log.error("Error from updating Member Level. status:{}, memberSeq:{}, levelSeq:{}", responseEntity.getStatusCode(), memberSeq, levelSeq);
             throw new RuntimeException("Error from updating Member Level. " + responseEntity.getStatusCode() + ", " + memberSeq + ", " + levelSeq);
         }
     }
@@ -213,7 +207,7 @@ public class MemberAdapter {
         ResponseEntity<PreferenceResponse> responseEntity = restTemplate.getForEntity(uri, PreferenceResponse.class);
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            log.error("Error from getting Member Preference. status: {}, param: {}", responseEntity.getStatusCode(), seq);
+            log.error("Error from getting Member Preference. status:{}, memberSeq:{}", responseEntity.getStatusCode(), seq);
             throw new RuntimeException("Error from getting Member Preference. " + responseEntity.getStatusCode() + ", " + seq);
         }
 
@@ -236,7 +230,7 @@ public class MemberAdapter {
         });
 
         if (responseEntity.getStatusCode() != HttpStatus.CREATED) {
-            log.error("Error from register Member Preference. status: {}, param: {}", responseEntity.getStatusCode(), memberSeq);
+            log.error("Error from register Member Preference. status:{}, memberSeq:{}", responseEntity.getStatusCode(), memberSeq);
             throw new RuntimeException("Error from register Member Preference. " + responseEntity.getStatusCode() + ", " + memberSeq);
         }
     }
@@ -255,7 +249,7 @@ public class MemberAdapter {
         });
 
         if (responseEntity.getStatusCode() != HttpStatus.NO_CONTENT) {
-            log.error("Error from deleting Member Preference. status: {}, param: {}, {}", responseEntity.getStatusCode(), memberSeq, preferenceSeq);
+            log.error("Error from deleting Member Preference. status:{}, memberSeq:{}, preferenceSeq:{}", responseEntity.getStatusCode(), memberSeq, preferenceSeq);
             throw new RuntimeException("Error from deleting Member Preference. " + responseEntity.getStatusCode() + ", " + memberSeq + ", " + preferenceSeq);
         }
     }
@@ -273,7 +267,7 @@ public class MemberAdapter {
         ResponseEntity<RoleResponse> responseEntity = restTemplate.getForEntity(uri, RoleResponse.class);
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            log.error("Error from getting Member Role. status: {}, param: {}", responseEntity.getStatusCode(), seq);
+            log.error("Error from getting Member Role. status:{}, memberSeq:{}", responseEntity.getStatusCode(), seq);
             throw new RuntimeException("Error from getting Member Role. " + responseEntity.getStatusCode() + ", " + seq);
         }
 
@@ -294,7 +288,7 @@ public class MemberAdapter {
         });
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            log.error("Error from updating Member Role. status: {}, param: {}, {}", responseEntity.getStatusCode(), memberSeq, roleSeq);
+            log.error("Error from updating Member Role. status:{}, memberSeq:{}, roleSeq:{}", responseEntity.getStatusCode(), memberSeq, roleSeq);
             throw new RuntimeException("Error from updating Member Role. " + responseEntity.getStatusCode() + ", " + memberSeq + ", " + roleSeq);
         }
     }
@@ -312,7 +306,7 @@ public class MemberAdapter {
         ResponseEntity<PositionResponse> responseEntity = restTemplate.getForEntity(uri, PositionResponse.class);
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            log.error("Error from getting Member Position. status: {}, param: {}", responseEntity.getStatusCode(), seq);
+            log.error("Error from getting Member Position. status:{}, memberSeq:{}", responseEntity.getStatusCode(), seq);
             throw new RuntimeException("Error from getting Member Position. " + responseEntity.getStatusCode() + ", " + seq);
         }
 
@@ -335,7 +329,7 @@ public class MemberAdapter {
         });
 
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            log.error("Error from register Member Position. status: {}, param: {}", responseEntity.getStatusCode(), memberSeq);
+            log.error("Error from register Member Position. status:{}, memberSeq:{}", responseEntity.getStatusCode(), memberSeq);
             throw new RuntimeException("Error from register Member Position. " + responseEntity.getStatusCode() + ", " + memberSeq);
         }
     }
@@ -354,7 +348,7 @@ public class MemberAdapter {
         });
 
         if (responseEntity.getStatusCode() != HttpStatus.NO_CONTENT) {
-            log.error("Error from deleting Member Position. status: {}, param: {}, {}", responseEntity.getStatusCode(), memberSeq, positionSeq);
+            log.error("Error from deleting Member Position. status:{}, memberSeq:{}, positionSeq:{}", responseEntity.getStatusCode(), memberSeq, positionSeq);
             throw new RuntimeException("Error from deleting Member Position. " + responseEntity.getStatusCode() + ", " + memberSeq + ", " + positionSeq);
         }
     }

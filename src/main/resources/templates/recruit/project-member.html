@@ -1,21 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>project-member </title>
-  <!-- Favicon-->
-<!--  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />-->
-  <!-- Font Awesome icons (free version)-->
+  <title>Rocket | Project Crew</title>
   <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-  <!-- Google fonts-->
   <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
-
   <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
-  <!-- Core theme CSS (includes Bootstrap)-->
   <link href="/css/project-style.css" rel="stylesheet" />
   <link href="/css/side-bar-style.css" rel="stylesheet" />
 </head>
@@ -26,13 +20,13 @@
 <section class="home-section bg-white">
   <!-- Navigation-->
   <th:block th:include="fragments/navigation" />
-  <!-- Recruit header with title and  introduction-->
+  <!-- Recruit header with title and introduction-->
   <header class="py-5 bg-light border-bottom mb-4">
     <div class="container">
       <div class="text-center my-5">
-        <h1 class="fw-bolder">IOS 개발자 스터디</h1>
-        <p class="lead mb-3">다양한 플랫폼 서비스를 만들 수 있는 프로젝트팀</p>
-        <button class="btn btn-outline-success">모집중</button>
+        <h1 class="fw-bolder" th:text="${recruitInfo.name}"></h1>
+        <p class="lead mb-3" th:text="${recruitInfo.info}"></p>
+        <button class="btn btn-outline-success" th:text="${recruitInfo.status}"></button>
       </div>
     </div>
   </header>
@@ -130,13 +124,11 @@
           <button class="btn btn-outline-secondary" >1:1 대화</button>
         </span>
         <div class="card mb-4">
-          <div class="card-header h5">
-            IOS 개발자 스터디
-          </div>
+          <div class="card-header h5" th:text="${recruitInfo.name}"></div>
           <div class="card-body">
-              <p class="">#스터디</p>
-            <p class="">앱개발 분야</p>
-            <p>기간 : 23.05.28 ~23.06.19  (23일)</p>
+              <p class="" th:text="${recruitInfo.projectType}"></p>
+            <p class="" th:text="${recruitInfo.projectField}"></p>
+            <p>기간 : <span th:text="${recruitInfo.startDate}"></span> ~ <span th:text="${recruitInfo.endDate}"></span></p>
           </div>
         </div>
         <!-- Categories widget-->
@@ -146,9 +138,9 @@
             <div class="row align-items-center">
               <div class="col">
                 <ul class="list-unstyled p-2">
-                  <li><a>IOS</a></li>
-                  <li><a>안드로이드</a></li>
-                  <li><a>웹서버</a></li>
+                  <li><a th:text="${applyStatusList.indexOf(name)}"></a></li>
+<!--                  <li><a>안드로이드</a></li>-->
+<!--                  <li><a>웹서버</a></li>-->
                 </ul>
               </div>
               <div class="col-lg-4">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -57,7 +57,7 @@
                 <div class="card-header h5">
                   <span class="d-none d-lg-block mb-0">
                     <img class="img-fluid img-profile rounded-circle mx-auto  mb-2" src="/img/cat_profile.jpeg" alt="..." />
-                    <span class="h4 text-muted">노르웨이숲 KIM</span>
+                    <span class="h4 text-muted" th:text="${applicantsList.indexOf(name)}"></span>
                   </span>
                 </div>
                 <div class="card-body text-center">
