@@ -130,8 +130,9 @@ Content-Type: application/json
 }
 
 ### 모든 소개글 카드 목록
-GET http://localhost:8989//project/api/introduces?page=1
+GET http://localhost:8989/project/api/introduces?page=0
 Content-Type: application/json
+Accept: application/json
 
 {
   "memberSeq" : 1

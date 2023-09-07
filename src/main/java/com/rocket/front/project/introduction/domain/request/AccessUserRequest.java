@@ -2,9 +2,11 @@ package com.rocket.front.project.introduction.domain.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
-@AllArgsConstructor
+@Setter
 @Getter
-public class AccessUser {
+@AllArgsConstructor
+public class AccessUserRequest {
     private Long memberSeq;
 }

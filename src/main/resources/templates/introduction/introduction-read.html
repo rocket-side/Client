@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Blog Home </title>
+    <title>로켓 | 프로젝트 </title>
     <!-- Favicon-->
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -53,19 +53,26 @@
                     <p class="card-text" th:text="${introduction.content}"></p>
 <!--                    <a href="#!"><img class="card-img-top" src="https://velog.velcdn.com/images/pexe99/post/d160af60-0551-46b8-8bf1-2f6b93ad215d/image.png" alt="..." /></a>-->
 <!--                    <h2 class="h1 p-1" >기술/언어</h2>-->
-                    <ul class="list-inline dev-icons">
-                        <li class="list-inline-item"><i class="fab fa-html5"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-css3-alt"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-js-square"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-angular"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-react"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-node-js"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-sass"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-less"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-wordpress"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-gulp"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-grunt"></i></li>
-                        <li class="list-inline-item"><i class="fab fa-npm"></i></li>
+                    <ul class="list-inline dev-icons" >
+                        <li class="list-inline-item" th:each="skill : ${introduction.recruit.skills}">
+                            <i th:switch="${skill.name}">
+                                <i th:case="html5" class="fab fa-html5"></i>
+                                <i th:case="css3" class="fab fa-css3-alt"></i>
+                                <i th:case="js" class="fab fa-js-square"></i>
+                                <i th:case="angular" class="fab fa-angular"></i>
+                                <i th:case="react" class="fab fa-react"></i>
+                                <i th:case="nodejs" class="fab fa-node-js"></i>
+                                <i th:case="sass" class="fab fa-sass"></i>
+                                <i th:case="less" class="fab fa-less"></i>
+                                <i th:case="wordpress" class="fab fa-wordpress"></i>
+                                <i th:case="gulp" class="fab fa-gulp"></i>
+                                <i th:case="grunt" class="fab fa-grunt"></i>
+                                <i th:case="npm" class="fab fa-npm"></i>
+                                <i th:case="swift" class="fab fa-swift"></i>
+                                <i th:case="IOS" class="fab fa-app-store-ios"></i>
+                                <span th:case="*" th:text="${skill.name}"></span>
+                            </i>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -75,86 +82,69 @@
             <!-- Search widget-->
             <span class="d-none d-lg-block">
         <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="/img/rabbit.jpeg" alt="..." />
-        <span class="h4 text-muted">Rabbit Moon</span>
+        <a class="h4 text-muted text-decoration-none" th:text="${introduction.recruit.leader}" th:href="@{/profile/{param}(param=${introduction.recruit.leader})}"></a>
 <!--        <button class="btn btn-outline-secondary" >1:1 대화</button>-->
       </span>
             <div class="card mb-4">
-                <div class="card-header h5" >
-                    IOS 개발자 스터디
+                <div class="card-header h5" th:text="${introduction.recruit.name}">
                 </div>
                 <div class="card-body">
-                    <p class="">#스터디</p>
-                    <p class="">앱개발 분야</p>
-                    <p>기간 : 23.05.28 ~23.06.19  (23일)</p>
+                    <p class=""># <span th:text="${introduction.recruit.projectField.name}"></span></p>
+                    <p class="" th:text="${introduction.recruit.projectType.name}">앱개발 분야</p>
+                    <p>기간 : <span th:text="${introduction.recruit.startDate}"></span> ~ <span th:text="${introduction.recruit.startDate}"></span></p>
                 </div>
             </div>
             <!-- Categories widget-->
-            <div class="card mb-4">
-                <div class="card-header h5">모집현황</div>
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <ul class="list-unstyled p-2">
-                                <li><a>IOS</a></li>
-                                <li><a>안드로이드</a></li>
-                                <li><a>웹서버</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-4">
-                            <ul class="list-unstyled p-2">
-                                <li><a>1/1</a></li>
-                                <li><a class="text-danger">1/2</a></li>
-                                <li><a>1/1</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-4">
-                            <ul class="list-unstyled p-2">
-                                <li><a href="#!" class="btn btn-dark btn-sm">완료</a></li>
-                                <li><a href="#!" class=" btn btn-danger btn-sm">지원</a></li>
-                                <li><a href="#!"class="btn btn-dark btn-sm">완료</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="card mb-4">-->
+<!--                <div class="card-header h5">모집현황</div>-->
+<!--                <div class="card-body">-->
+<!--                    <div class="row align-items-center">-->
+<!--                        <div class="col">-->
+<!--                            <ul class="list-unstyled p-2">-->
+<!--                                <li><a>IOS</a></li>-->
+<!--                                <li><a>안드로이드</a></li>-->
+<!--                                <li><a>웹서버</a></li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                        <div class="col-lg-4">-->
+<!--                            <ul class="list-unstyled p-2">-->
+<!--                                <li><a>1/1</a></li>-->
+<!--                                <li><a class="text-danger">1/2</a></li>-->
+<!--                                <li><a>1/1</a></li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                        <div class="col-lg-4">-->
+<!--                            <ul class="list-unstyled p-2">-->
+<!--                                <li><a href="#!" class="btn btn-dark btn-sm">완료</a></li>-->
+<!--                                <li><a href="#!" class=" btn btn-danger btn-sm">지원</a></li>-->
+<!--                                <li><a href="#!"class="btn btn-dark btn-sm">완료</a></li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
         <!-- Comments section-->
         <section class="mb-5">
             <div class="card bg-light">
-                <div class="card-body">
+                <div class="card-body" >
                     <!-- Comment form-->
-                    <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+<!--                    <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>-->
                     <!-- Comment with nested comments-->
-                    <div class="d-flex mb-4">
+                    <div class="d-flex mb-4" th:each="comment : ${comments}">
                         <!-- Parent comment-->
                         <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                         <div class="ms-3">
-                            <div class="fw-bold">Commenter Name</div>
-                            If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+                            <div class="fw-bold" th:text="${comment.memberSeq}"></div>
+                            <p th:text="${comment.content}"></p>
                             <!-- Child comment 1-->
-                            <div class="d-flex mt-4">
+                            <div class="d-flex mt-4" th:each="childComment : ${comment.replyList}">
                                 <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                 <div class="ms-3">
-                                    <div class="fw-bold">Commenter Name</div>
-                                    And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
+                                    <div class="fw-bold" th:text="${childComment.memberSeq}"></div>
+                                    <p th:text="${childComment.content}"></p>
                                 </div>
                             </div>
-                            <!-- Child comment 2-->
-                            <div class="d-flex mt-4">
-                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                <div class="ms-3">
-                                    <div class="fw-bold">Commenter Name</div>
-                                    When you put money directly to a problem, it makes a good headline.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single comment-->
-                    <div class="d-flex">
-                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                        <div class="ms-3">
-                            <div class="fw-bold">Commenter Name</div>
-                            When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
                         </div>
                     </div>
                 </div>
